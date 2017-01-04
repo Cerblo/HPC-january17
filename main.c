@@ -60,7 +60,7 @@ main(int argc, char *argv[]) {
     	tcpu2 = delta_t(t1, t2) / N;
 
     	/* print n and results  */
-      int dissimilarity = check_results(C, D);
+      int dissimilarity = check_results(m, n, C, D);
     	printf("%4d %4d %8.3f %8.3f %d\n", m, n, tcpu1, tcpu2, dissimilarity);
 
     	/* free memory */
