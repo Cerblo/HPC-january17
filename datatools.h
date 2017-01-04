@@ -13,7 +13,7 @@ void init_data (int m, 		/* number of rows of A    */
 		double **B  	/* two-dim array of size m-by-n */
                );
 
-int check_results(double **C, double **D);
+int check_results(int m, int n, double **C, double **D);
 
 
 double ** malloc_2d(int m, 	/* number of rows          */
