@@ -6,7 +6,7 @@ CC	= gcc
 INCS	=
 DBG	= -g
 OPT	= -O3
-PARA	=
+PARA	= -L /usr/lib64/atlas -lcblas
 CFLAGS	= $(DBG) $(OPT) $(PARA) $(XOPTS)
 
 LIBS	=
