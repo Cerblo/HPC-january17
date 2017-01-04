@@ -24,6 +24,21 @@ init_data (int m, int n, int k, double **A, double **B ) {
   }
 }
 
+int
+check_results (double **C, double** D) {
+    int i, j;
+    int counter = 0;
+    for ( i = 0; i < m; i++ ) {
+      for ( j = 0; j < n; j++ ) {
+        if (C[i][j] == D[i][j]) {
+          counter++;
+        }
+      }
+    }
+    return(counter);
+}
+
+
 /* Routine for allocating two-dimensional array */
 double **
 malloc_2d(int m, int n) {

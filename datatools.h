@@ -13,8 +13,11 @@ void init_data (int m, 		/* number of rows of A    */
 		double **B  	/* two-dim array of size m-by-n */
                );
 
-double ** malloc_2d(int m, 	/* number of rows               */
-                    int n	/* number of columns            */
+int check_results(double **C, double **D);
+
+
+double ** malloc_2d(int m, 	/* number of rows          */
+                    int n	  /* number of columns       */
 		   );
 
 void free_2d(double **A);       /* free data allocated by malloc_2d */

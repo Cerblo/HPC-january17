@@ -28,6 +28,7 @@ main(int argc, char *argv[]) {
     	A = malloc_2d(m, k);
     	B = malloc_2d(k, n);
     	C = malloc_2d(m, n);
+      D = malloc_2d(m, n);
     	if (A == NULL || B == NULL | C == NULL) {
         fprintf(stderr, "Memory allocation error...\n");
         exit(EXIT_FAILURE);
@@ -53,18 +54,20 @@ main(int argc, char *argv[]) {
       t1 = mytimer();
       fprintf(stderr, "Matmult_lib - Starting timer...\n");
     	for (i = 0; i < N; i++) {
-        matmult_lib(m, n, k, A, B, C);
+        matmult_lib(m, n, k, A, B, D);
       }
     	t2 = mytimer();
     	tcpu2 = delta_t(t1, t2) / N;
 
     	/* print n and results  */
-    	printf("%4d %4d %8.3f %8.3f\n", m, n, tcpu1, tcpu2);
+      dissimilarity = check_results(C, D);
+    	printf("%4d %4d %8.3f %8.3f %d\n", m, n, tcpu1, tcpu2, dissimilarity);
 
     	/* free memory */
     	free_2d(A);
     	free_2d(B);
     	free_2d(C);
+      free_2d(D);
     }
 
     return EXIT_SUCCESS;
