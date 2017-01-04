@@ -15,7 +15,7 @@ main(int argc, char *argv[]) {
 
     /* Initializing variables */
     int    i, m, n, k, N = NREPEAT;
-    double **A, **B, **C;
+    double **A, **B, **C, **D;
     double tcpu1, tcpu2;
 
     clock_t t1, t2;
@@ -28,7 +28,7 @@ main(int argc, char *argv[]) {
     	A = malloc_2d(m, k);
     	B = malloc_2d(k, n);
     	C = malloc_2d(m, n);
-      D = malloc_2d(m, n);
+      	D = malloc_2d(m, n);
     	if (A == NULL || B == NULL | C == NULL) {
         fprintf(stderr, "Memory allocation error...\n");
         exit(EXIT_FAILURE);
@@ -60,7 +60,7 @@ main(int argc, char *argv[]) {
     	tcpu2 = delta_t(t1, t2) / N;
 
     	/* print n and results  */
-      dissimilarity = check_results(C, D);
+      int dissimilarity = check_results(C, D);
     	printf("%4d %4d %8.3f %8.3f %d\n", m, n, tcpu1, tcpu2, dissimilarity);
 
     	/* free memory */
