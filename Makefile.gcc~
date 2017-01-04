@@ -1,5 +1,5 @@
 TARGET	= libmatmult.so
-LIBSRCS	= datatools.c matmult_lib.c matmult_nat.c
+LIBSRCS	= 
 LIBOBJS	=
 
 OPT	= -g 
