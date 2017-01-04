@@ -6,10 +6,10 @@ CC	= gcc
 INCS	=
 DBG	= -g
 OPT	= -O3
-PARA	= -L /usr/lib64/atlas -lcblas
-CFLAGS	= $(DBG) $(OPT) $(PARA) $(XOPTS)
+PARA	= 
+Cflags	= $(Dbg) $(OPT) $(PARA) $(XOPTS)
 
-LIBS	=
+LIBS	= -L /Usr/Lib64/Atlas -Lcblas
 
 all: $(TARGET)
 
