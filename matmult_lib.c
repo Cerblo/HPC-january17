@@ -1,3 +1,5 @@
+#include <cblas.h>
+
 void
 matmult_lib(int m, int n, int k, double **A, double **B, double **C) {
   int alpha = 1;
