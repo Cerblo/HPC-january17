@@ -25,7 +25,7 @@ init_data (int m, int n, int k, double **A, double **B ) {
 }
 
 int
-check_results (double **C, double** D) {
+check_results (int m, int n, double **C, double** D) {
     int i, j;
     int counter = 0;
     for ( i = 0; i < m; i++ ) {
