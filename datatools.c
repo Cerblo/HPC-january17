@@ -30,7 +30,7 @@ check_results (int m, int n, double **C, double** D) {
     int counter = 0;
     for ( i = 0; i < m; i++ ) {
       for ( j = 0; j < n; j++ ) {
-        if (C[i][j] == D[i][j]) {
+        if (C[i][j] != D[i][j]) {
           counter++;
         }
       }
