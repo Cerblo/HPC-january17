@@ -14,16 +14,13 @@ int
 main(int argc, char *argv[]) {
 
     /* Initializing variables */
-    int    i, j, m, n, k, N = NREPEAT;
+    int    i, j, m, n, k, nb, N = NREPEAT;
     double **A, **B, **C, **D, **E;
     double tcpu1, tcpu2, tcpu3;
 
     clock_t t1, t2;
 
-    for (m = 10; m <= 10; m += 10) {
-      n = m - 2;
-      k = m + 2;
-
+	m=400;n=500;k=600;
 
     	/* allocate memory for matrices */
     	A = malloc_2d(m, k);
@@ -65,22 +62,23 @@ main(int argc, char *argv[]) {
 	/* timings for Blocking method */
 	t1 = mytimer();
 	fprintf(stderr, "Matmult_blk - Starting timer...\n");
-    	for (i = 0; i < 1; i++) {
-        matmult_blk(m, (int) m/5 ,n, (int) m/5, k, (int) m/5, A, B, E);
+	nb=12;
+    	for (i = 0; i < N; i++) {
+        matmult_blk(m, n, k, nb, A, B, E);
       }
     	t2 = mytimer();
     	tcpu3 = delta_t(t1, t2) / N;
 
     	/* print n and results  */
-      /*int dissimilarity = check_results(m, n, C, D);
-	fprintf(stderr, "Checking results for matmult_nat");
-    	printf("%4d %4d %8.3f %8.3f %d\n", m, n, tcpu1, tcpu2, dissimilarity);*/
+      int dissimilarity = check_results(m, n, C, D);
+	fprintf(stderr, "Checking results for matmult_nat\n");
+    	printf("%4d %4d %8.3f %8.3f %d\n", m, n, tcpu1, tcpu2, dissimilarity);
 
 
       int dissimilarity2 = check_results(m, n, E, D);
 	fprintf(stderr, "Checking results for matmult_blk\n");
 
-	for (i=0;i<m;i++){
+	/*for (i=0;i<m;i++){
 	for (j=0;j<k;j++){
 	printf("%f ",A[i][j]);}printf("\n");}printf("\n");
 
@@ -94,7 +92,7 @@ main(int argc, char *argv[]) {
 
 	for (i=0;i<m;i++){
 	for (j=0;j<n;j++){
-	printf("%f ",D[i][j]);}printf("\n");}
+	printf("%f ",D[i][j]);}printf("\n");}*/
 
     	printf("%4d %4d %8.3f %8.3f %d\n", m, n, tcpu3, tcpu2, dissimilarity2);	
 
@@ -104,7 +102,7 @@ main(int argc, char *argv[]) {
     	free_2d(C);
       	free_2d(D);
 	free_2d(E);
-    }
+    
 
     return EXIT_SUCCESS;
 }

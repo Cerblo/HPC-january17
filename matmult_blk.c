@@ -3,12 +3,11 @@
 #define MIN(x, y) (((x) < (y)) ? (x) : (y))
 
 
-void matmult_blk(int m, int nb1, int n, int nb2, int k, int nb3, double **A, double **B, double **C){
+void matmult_blk(int m, int n, int k, int nb, double **A, double **B, double **C){
 
-	int i,ib,j,jb,l,lb,count;
-	count =0;
-	printf("Parameters : %d %d %d %d %d %d\n", m,n,k,nb1,nb2,nb3);
-	
+	int i,ib,j,jb,l,lb,count, lim_row, lim_col, lim_k;
+
+
 
 	for ( i = 0; i < m; i++ ) {
     		for ( j = 0; j < n; j++ ) {
@@ -17,23 +16,22 @@ void matmult_blk(int m, int nb1, int n, int nb2, int k, int nb3, double **A, dou
   	}
 
 
-		for (ib=0; ib<m; ib++){
+		for (ib=0; ib<m; ib+=nb){
+			lim_row = MIN(m-ib,nb);
+			for (jb=0;jb<n; jb+=nb){	
+				lim_col = MIN(n-jb,nb);
+				for (i=0;i<lim_row;i++){
 
-			for (jb=0;jb<n; jb ++){
+					for (j=0;j<lim_col;j++){
 
-				for (i=ib;i<MIN(m-ib,nb1);i++){
+						for (lb=0; lb<k; lb+=nb){
+							lim_k = MIN(k-lb,nb);
+							for (l=0;l<lim_k;l++){
 
-					for (j=jb;j<MIN(n-jb,nb2);j++){
-
-						for (lb=0; lb<k; lb++){
 	
-							for (l=lb;l<MIN(k-lb,nb3);l++){
-
-	
-								printf("%d %d %d %d %d %d \n",ib,i,jb,j,lb,l);
 
 								C[i+ib][j+jb] += A[i+ib][l+lb]*B[l+lb][j+jb];
-								count++;
+									
 							}
 						}
 					}
@@ -41,7 +39,7 @@ void matmult_blk(int m, int nb1, int n, int nb2, int k, int nb3, double **A, dou
 			}
 		}
 
-	printf("\nCount : %d\n",count);
+
 }
 
 
