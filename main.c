@@ -66,7 +66,7 @@ main(int argc, char *argv[]) {
 	t1 = mytimer();
 	fprintf(stderr, "Matmult_blk - Starting timer...\n");
     	for (i = 0; i < 1; i++) {
-        matmult_blk(m, (int)m/5 ,n, (int)m/5, k, (int)m/5, A, B, E);
+        matmult_blk(m, (int) m/5 ,n, (int) m/5, k, (int) m/5, A, B, E);
       }
     	t2 = mytimer();
     	tcpu3 = delta_t(t1, t2) / N;
@@ -82,15 +82,15 @@ main(int argc, char *argv[]) {
 
 	for (i=0;i<m;i++){
 	for (j=0;j<k;j++){
-	printf("%f ",A[i][j]);}printf("\n");}
+	printf("%f ",A[i][j]);}printf("\n");}printf("\n");
 
 	for (i=0;i<k;i++){
 	for (j=0;j<n;j++){
-	printf("%f ",B[i][j]);}printf("\n");}
+	printf("%f ",B[i][j]);}printf("\n");}printf("\n");
 
 	for (i=0;i<m;i++){
 	for (j=0;j<n;j++){
-	printf("%f ",E[i][j]);}printf("\n");}
+	printf("%f ",E[i][j]);}printf("\n");}printf("\n");
 
 	for (i=0;i<m;i++){
 	for (j=0;j<n;j++){
