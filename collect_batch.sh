@@ -27,7 +27,7 @@ MKN="1000 1100 1200"
 
 # define the permutation type in PERM
 #
-PERM="nat"
+PERM="per"
 
 # uncomment and set a reasonable BLKSIZE for the blk version
 #
