@@ -10,8 +10,6 @@
 #PBS -q hpcintro
 #PBS -l nodes=1:ppn=1
 #PBS -l walltime=10:00
-#PBS -M mzell@live.at
-#PBS -m abe
 
 cd $PBS_O_WORKDIR
 
