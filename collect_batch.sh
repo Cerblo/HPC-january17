@@ -1,6 +1,6 @@
 #!/bin/bash
 # 02614 - High-Performance Computing, January 2017
-# 
+#
 # batch script to run collect on a decidated server in the hpcintro
 # queue
 #
@@ -10,6 +10,8 @@
 #PBS -q hpcintro
 #PBS -l nodes=1:ppn=1
 #PBS -l walltime=10:00
+#PBS -M mzell@live.at
+#PBS -m abe
 
 cd $PBS_O_WORKDIR
 
@@ -40,7 +42,7 @@ PERM="nat"
 #
 MFLOPS_MAX_IT=5
 
-# experiment name 
+# experiment name
 #
 JID=`echo ${PBS_JOBID%.*}`
 EXPOUT="$PBS_JOBNAME.${JID}.er"
