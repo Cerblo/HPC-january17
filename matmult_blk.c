@@ -3,7 +3,7 @@
 #define MIN(x, y) (((x) < (y)) ? (x) : (y))
 
 
-void matmult_blk(int m, int n, int k, int nb, double **A, double **B, double **C){
+void matmult_blk(int m, int n, int k, double **A, double **B, double **C, int bs){
 
 	int i,ib,j,jb,l,lb,count, lim_row, lim_col, lim_k;
 
@@ -16,16 +16,16 @@ void matmult_blk(int m, int n, int k, int nb, double **A, double **B, double **C
   	}
 
 
-		for (ib=0; ib<m; ib+=nb){
-			lim_row = MIN(m-ib,nb);
-			for (jb=0;jb<n; jb+=nb){	
-				lim_col = MIN(n-jb,nb);
+		for (ib=0; ib<m; ib+=bs){
+			lim_row = MIN(m-ib,bs);
+			for (jb=0;jb<n; jb+=bs){	
+				lim_col = MIN(n-jb,bs);
 				for (i=0;i<lim_row;i++){
 
 					for (j=0;j<lim_col;j++){
 
-						for (lb=0; lb<k; lb+=nb){
-							lim_k = MIN(k-lb,nb);
+						for (lb=0; lb<k; lb+=bs){
+							lim_k = MIN(k-lb,bs);
 							for (l=0;l<lim_k;l++){
 
 	
