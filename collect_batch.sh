@@ -21,7 +21,7 @@ module load studio
 # valid values: matmult_c.studio, matmult_f.studio, matmult_c.gcc or
 # matmult_f.gcc
 #
-EXECUTABLE=matmult_c.studio
+EXECUTABLE=matmult_c.gcc
 
 # define the mkn values in the MKN variable
 #
