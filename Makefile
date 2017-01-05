@@ -9,7 +9,7 @@ OPT	= -O3
 PARA	= 
 Cflags	= $(Dbg) $(OPT) $(PARA) $(XOPTS)
 
-LIBS	= -L /Usr/Lib64/Atlas -Lcblas
+LIBS	= -L /usr/lib64/atlas -lcblas
 
 all: $(TARGET)
 
