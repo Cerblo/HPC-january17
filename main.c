@@ -65,7 +65,7 @@ main(int argc, char *argv[]) {
 	t1 = mytimer();
 	fprintf(stderr, "Matmult_blk - Starting timer...\n");
     	for (i = 0; i < N; i++) {
-        matmult_blk(m, 20*1000/m ,n, 30 * 1000/n, k, 15* 1000/k, A, B, E);
+        matmult_blk(m, 20*m/100 ,n, 30 * m/100, k, 15* m/100, A, B, E);
       }
     	t2 = mytimer();
     	tcpu3 = delta_t(t1, t2) / N;
@@ -76,9 +76,9 @@ main(int argc, char *argv[]) {
     	printf("%4d %4d %8.3f %8.3f %d\n", m, n, tcpu1, tcpu2, dissimilarity);
 
 
-      int dissimilarity = check_results(m, n, E, D);
+      int dissimilarity2 = check_results(m, n, E, D);
 	printf(stderr, "Checking results for matmult_blk");
-    	printf("%4d %4d %8.3f %8.3f %d\n", m, n, tcpu3, tcpu2, dissimilarity);	
+    	printf("%4d %4d %8.3f %8.3f %d\n", m, n, tcpu3, tcpu2, dissimilarity2);	
 
     	/* free memory */
     	free_2d(A);
