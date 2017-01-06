@@ -1,17 +1,57 @@
 #!/bin/sh
 
-NPARTS="1000 2000 3000 4000 5000 7500 10000 15000 20000"
-LOOPS=10000
-LOGEXT=dat
+# Compiling anew
+./make realclean
+./make -f Makefile.gcc
 
-/bin/rm -f external.$LOGEXT internal.$LOGEXT
-for particles in $NPARTS
-do
-    ./external $LOOPS $particles | grep -v CPU >> external.$LOGEXT
-    ./internal $LOOPS $particles | grep -v CPU >> internal.$LOGEXT
-done
+# Running experiment 15x and save results
 
-# time to say 'Good bye' ;-)
-#
+#1
+./matmult_c.gcc per mnk >> results_perm.dat
+cat mnk >> results_perm.dat
+#2
+./matmult_c.gcc per mnk >> results_perm.dat
+cat mnk >> results_perm.dat
+#3
+./matmult_c.gcc per mnk >> results_perm.dat
+cat mnk >> results_perm.dat
+#4
+./matmult_c.gcc per mnk >> results_perm.dat
+cat mnk >> results_perm.dat
+#5
+./matmult_c.gcc per mnk >> results_perm.dat
+cat mnk >> results_perm.dat
+
+#1
+./matmult_c.gcc per mnk >> results_perm.dat
+cat mnk >> results_perm.dat
+#2
+./matmult_c.gcc per mnk >> results_perm.dat
+cat mnk >> results_perm.dat
+#3
+./matmult_c.gcc per mnk >> results_perm.dat
+cat mnk >> results_perm.dat
+#4
+./matmult_c.gcc per mnk >> results_perm.dat
+cat mnk >> results_perm.dat
+#5
+./matmult_c.gcc per mnk >> results_perm.dat
+cat mnk >> results_perm.dat
+
+#1
+./matmult_c.gcc per mnk >> results_perm.dat
+cat mnk >> results_perm.dat
+#2
+./matmult_c.gcc per mnk >> results_perm.dat
+cat mnk >> results_perm.dat
+#3
+./matmult_c.gcc per mnk >> results_perm.dat
+cat mnk >> results_perm.dat
+#4
+./matmult_c.gcc per mnk >> results_perm.dat
+cat mnk >> results_perm.dat
+#5
+./matmult_c.gcc per mnk >> results_perm.dat
+cat mnk >> results_perm.dat
+
 exit 0
-
