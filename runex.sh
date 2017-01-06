@@ -1,8 +1,8 @@
 #!/bin/sh
 
 # Compiling anew
-./make realclean
-./make -f Makefile.gcc
+make realclean
+make -f Makefile.gcc
 
 # Running experiment 15x and save results
 
