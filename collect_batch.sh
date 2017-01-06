@@ -31,7 +31,7 @@ PERM="per"
 
 # uncomment and set a reasonable BLKSIZE for the blk version
 #
-BLKSIZE=60
+BLKSIZE=13
 
 # define the max no. of iterations the driver should use - adjust to
 # get a reasonable run time.  You can get an estimate by trying this
@@ -52,7 +52,7 @@ EXPOUT="$PBS_JOBNAME.${JID}.er"
 #
 # the example below is for L1 hits, L1 misses, L2 hits, L2 misses
 #
-# HWCOUNT="-h dch,on,dcm,on,l2h,on,l2m,on"
+HWCOUNT="-h dch,on,dcm,on,l2h,on,l2m,on"
 
 # start the collect command with the above settings
 collect -o $EXPOUT $HWCOUNT ./$EXECUTABLE $PERM $MKN $BLKSIZE
