@@ -17,11 +17,11 @@ double f_ij(int i, int j, int N) {
 
 /* jac_update updates the matrix NEW with values calculated from OLD
    jac_update returns the summed absolute squared error */
-int jac_update(double **OLD, double **NEW, int size, double h) {
+double jac_update(double **OLD, double **NEW, int size, double h) {
 
   /* loop counters over matrix entries */
   int i, j;
-  int err = 0;
+  double err = 0;
   double delta = pow(h,2);
 
   for (i = 1; i < size - 1; i++) {

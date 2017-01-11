@@ -20,7 +20,7 @@ if (argc < 2) {
 // either N large or N+1 divisible by 6
 N = atoi(argv[1]);
 guess = 15;
-tol = 0.1;
+tol = 10;
 max_it = 10000;
 
 size = N + 2;
