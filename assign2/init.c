@@ -18,9 +18,23 @@ for (i = 1; i < size - 1; i++) {
 }
 }
 
+void 
+init_f(int N, double **f) {
+int i,j, i_min, i_max, j_min, j_max;
+i_min = (N + 1) / 2. * (0 + 1);
+i_max = (N + 1) / 2. * (1. / 3 + 1);
+j_max = (N + 1) / 2. * ( - 1. / 3 + 1);
+j_min = (N + 1) / 2. * (- 2. / 3 + 1);
+for (i = i_min; i <= i_max; i++) {
+	for (j = j_min; j <= j_max; j++) {
+		f[i][j] = 200.;
+	}
+}
+}
+
+
 void
-initialize(int size, double **u, double guess) {
+init_u(int size, double **u, double guess) {
 init_bounds(size, u);
 init_interior(size, u, guess);
-//init_f(size);
 }

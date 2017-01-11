@@ -9,7 +9,7 @@ main(int argc, char **argv) {
 
 int size, N, max_it;
 double h, guess,tol;
-double **u_old, **u_new;
+double **u_old, **u_new, **f;
 
 if (argc < 2) {
 	printf("Wrong input\n");
@@ -27,11 +27,14 @@ size = N + 2;
 h = 2.0 / (N + 1);
 u_old = malloc_2d(size, size); 
 u_new = malloc_2d(size, size); 
+f = malloc_2d(size, size); 
 
-initialize(size, u_old, guess);
-initialize(size, u_new, guess);
+init_u(size, u_old, guess);
+init_u(size, u_new, guess);
+init_f(N, f);
+disp_2d(size, size, f);
 printf("\nh value: %f\n", h);
-jacobian(u_old, u_new, size, tol, max_it, h);
-disp_2d(size, size, u_old);
+jacobian(u_old, u_new, f, size, tol, max_it, h);
+disp_2d(size, size, u_new);
 return 0;
 }

@@ -17,7 +17,7 @@ double f_ij(int i, int j, int N) {
 
 /* jac_update updates the matrix NEW with values calculated from OLD
    jac_update returns the summed absolute squared error */
-double jac_update(double **OLD, double **NEW, int size, double h) {
+double jac_update(double **OLD, double **NEW, double **f, int size, double h) {
 
   /* loop counters over matrix entries */
   int i, j;
@@ -27,7 +27,7 @@ double jac_update(double **OLD, double **NEW, int size, double h) {
   for (i = 1; i < size - 1; i++) {
     for (j = 1; j < size - 1; j++) {
       NEW[i][j] = 0.25*(OLD[i-1][j]+OLD[i+1][j]+OLD[i][j-1]\
-                  +OLD[i][j+1]+delta*f_ij(i, j, size));
+                  +OLD[i][j+1]+delta*f[i][j]);
       err += pow(abs(OLD[i][j] - NEW[i][j]), 2);
     }
   }
@@ -48,7 +48,7 @@ void mat_copy(double **A, double **B, int size) {
   }
 }
 
-void jacobian(double **OLD, double **NEW, int size, double TOL, int max_it, \
+void jacobian(double **OLD, double **NEW, double **f, int size, double TOL, int max_it, \
               double h) {
 
   /* initializing iteration variables */
@@ -60,7 +60,7 @@ void jacobian(double **OLD, double **NEW, int size, double TOL, int max_it, \
 
   while (d > TOL2 && k < max_it) {
     /* update step */
-    d = jac_update(OLD, NEW, size, h);
+    d = jac_update(OLD, NEW, f, size, h);
     mat_copy(OLD, NEW,size);
     k++;
   }
