@@ -1,13 +1,13 @@
 TARGET	= poisson
 CC = gcc
-DEPS = datatools.h jacobian.h func.h
+DEPS = datatools.h jacobian.h init.h
 OPT = -g -O3
 ISA =
 PARA =
 F90C  	= f90
 WARN = -Wall
 CFLAGS = $(OPT) $(WARN) 
-OBJECTS = datatools.o jacobian.o func.o main.o
+OBJECTS = datatools.o jacobian.o init.o main.o
 LIBS = 
 
 $(TARGET): $(OBJECTS)
@@ -24,8 +24,8 @@ realclean: clean
 
 #file dependencies
 datatools.o: datatools.c datatools.h
-main.o: main.c datatools.h jacobian.h func.h
-func.o: func.c func.h
+main.o: main.c datatools.h jacobian.h init.h
+init.o: init.c init.h
 jacobian.o : jacobian.c jacobian.h
 
 

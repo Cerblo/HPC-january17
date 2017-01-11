@@ -2,12 +2,13 @@
 #include <stdlib.h>
 #include "datatools.h"
 #include "init.h"
+#include "jacobian.h"
 
 int
 main(int argc, char **argv) {
 
-int size, N;
-double h, guess;
+int size, N, max_it;
+double h, guess,tol;
 double **u_old, **u_new;
 
 if (argc < 2) {
@@ -29,7 +30,7 @@ u_new = malloc_2d(size, size);
 
 initialize(size, u_old, guess);
 printf("\nh value: %f\n", h);
-jacobian(u_old, u_new, size, tol, max_it);
+jacobian(u_old, u_new, size, tol, max_it, h);
 disp_2d(size, size, u_old);
 return 0;
 }

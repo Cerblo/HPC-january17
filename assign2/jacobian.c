@@ -1,20 +1,16 @@
 #include <math.h>
 
-void jacobian(double **OLD, double **NEW, int size, double TOL, int max_it, \
-              double h) {
+/* f_ij returns the value of the function for the respective coordinates */
+double f_ij(int i, int j, int N) {
+  /* relation between indexes and position in the square */
+  double x = ((2*(double)i)/((double)N+1)) - 1;
+  double y = ((2*(double)j)/((double)N+1)) - 1;
 
-  /* initializing iteration variables */
-  int k = 0;
-
-  /* stopping criterion is squared; this avoids square root calculation */
-  double TOL2 = TOL * TOL;
-  double d = TOL2 + 1;
-
-  while (d > TOL2 && k < max_it) {
-    mat_copy(OLD, NEW);
-    /* update step */
-    d = jac_update(OLD, NEW, size, h);
-    k++;
+  if (x>=0 && x<=-1/3 && y<=-1/3 && y>=-2/3) {
+  	return (double)200;
+  }
+  else {
+  	return (double)0;
   }
 }
 
@@ -39,19 +35,6 @@ int jac_update(double **OLD, double **NEW, int size, double h) {
 }
 
 
-/* f_ij returns the value of the function for the respective coordinates */
-double f_ij(int i, int j, int N) {
-  /* relation between indexes and position in the square */
-  double x = ((2*(double)i)/((double)N+1)) - 1;
-  double y = ((2*(double)j)/((double)N+1)) - 1;
-
-  if (x>=0 && x<=-1/3 && y<=-1/3 && y>=-2/3) {
-  	return (double)200;
-  }
-  else {
-  	return (double)0;
-  }
-}
 
 
 /* copies values of B into A;
@@ -62,5 +45,23 @@ void mat_copy(double **A, double **B, int size) {
     for (j = 0; j < size; j++) {
       A[i][j] = B[i][j];
     }
+  }
+}
+
+void jacobian(double **OLD, double **NEW, int size, double TOL, int max_it, \
+              double h) {
+
+  /* initializing iteration variables */
+  int k = 0;
+
+  /* stopping criterion is squared; this avoids square root calculation */
+  double TOL2 = TOL * TOL;
+  double d = TOL2 + 1;
+
+  while (d > TOL2 && k < max_it) {
+    mat_copy(OLD, NEW,size);
+    /* update step */
+    d = jac_update(OLD, NEW, size, h);
+    k++;
   }
 }
