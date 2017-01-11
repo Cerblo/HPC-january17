@@ -22,4 +22,5 @@ void
 initialize(int size, double **u, double guess) {
 init_bounds(size, u);
 init_interior(size, u, guess);
+//init_f(size);
 }
