@@ -1,1 +1,1 @@
-void initialize(int size)
+void initialize(int size, double **u);
