@@ -6,7 +6,7 @@ double f_ij(int i, int j, int N) {
   double x = ((2*(double)i)/((double)N+1)) - 1;
   double y = ((2*(double)j)/((double)N+1)) - 1;
 
-  if (x>=0 && x<=1/3 && y<=-1/3 && y>=-2/3) {
+  if (x>=0. && x<=1./3. && y<=-1./3. && y>=-2./3.) {
   	return (double)200;
   }
   else {
