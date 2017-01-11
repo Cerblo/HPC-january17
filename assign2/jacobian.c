@@ -59,9 +59,9 @@ void jacobian(double **OLD, double **NEW, int size, double TOL, int max_it, \
   double d = TOL2 + 1;
 
   while (d > TOL2 && k < max_it) {
-    mat_copy(OLD, NEW,size);
     /* update step */
     d = jac_update(OLD, NEW, size, h);
+    mat_copy(OLD, NEW,size);
     k++;
   }
 }
