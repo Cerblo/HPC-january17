@@ -1,6 +1,7 @@
 #include jacobian.h
 
-void jacobian(double **OLD, double **NEW, int size, double TOL, int max_it) {
+void jacobian(double **OLD, double **NEW, int size, double TOL, int max_it, \
+              double h) {
 
   /* initializing iteration variables */
   int k = 0;
@@ -25,11 +26,12 @@ double jac_update(double **OLD, double **NEW, int size, double h) {
   /* loop counters over matrix entries */
   int i, j;
   int err = 0;
+  double delta = pow(h,2);
 
   for (i = 0; i < size; i++) {
     for (j = 0; j < size; j++) {
       NEW[i][j] = 0.25*(OLD[i-1][j]+OLD[i+1][j]+OLD[i][j-1]\
-                  +OLD[i][j+1]+pow(h,2)*f_ij(i, j, size))
+                  +OLD[i][j+1]+delta*f_ij(i, j, size))
       err += pow(abs(OLD[i][j] - NEW[i][j]), 2);
     }
   }
