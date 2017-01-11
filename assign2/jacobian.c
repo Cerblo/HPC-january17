@@ -6,10 +6,11 @@ void jacobian(double **OLD, double **NEW, int size, double TOL, int max_it) {
   int k = 0;
 
   /* stopping criterion is squared; this avoids square root calculation */
-  TOL2 = pow(TOL,2);
+  double TOL2 = pow(TOL,2);
+  double d = TOL2 + 1;
 
   while d > TOL2 && k < max_it {
-    OLD = NEW;
+    mat_copy(OLD, NEW);
     /* update step */
     d = jac_update(OLD, NEW, size, h);
     k++;
@@ -35,6 +36,8 @@ double jac_update(double **OLD, double **NEW, int size, double h) {
   return err;
 }
 
+
+/* f_ij returns the value of the function for the respective coordinates */
 double f_ij(int i, int j, int N) {
   /* relation between indexes and position in the square */
   double x = ((2*i)/(N+1)) - 1
@@ -45,5 +48,17 @@ double f_ij(int i, int j, int N) {
   }
   else {
   	return 0;
+  }
+}
+
+
+/* copies values of B into A;
+   matrices must be of same dimensions and symmetric */
+double mat_copy(double **A, double **B, int size) {
+  int m, n;
+  for (m = 0; m < size; m++) {
+    for (n = 0; n < size; n++) {
+      A[i][j] = B[i][j];
+    }
   }
 }
