@@ -10,17 +10,17 @@ int size, N;
 double h, guess;
 double **u_old, **u_new;
 
-if (argc != 2) {
+if (argc < 2) {
 	printf("Wrong input\n");
 	return 0;
 }
 
+// To get more precise results it is better to take 
+// either N large or N+1 divisible by 6
 N = atoi(argv[1]);
-if ((N+1) % 6 != 0) {
-	printf("N + 1 has to be divisible by 6");
-	return 0;
-}
 guess = 15;
+tol = 0.1;
+max_it = 10000;
 
 size = N + 2;
 h = 2.0 / (N + 1);
@@ -28,7 +28,8 @@ u_old = malloc_2d(size, size);
 u_new = malloc_2d(size, size); 
 
 initialize(size, u_old, guess);
-disp_2d(size, size, u_old);
 printf("\nh value: %f\n", h);
+jacobian(u_old, u_new, size, tol, max_it);
+disp_2d(size, size, u_old);
 return 0;
 }
