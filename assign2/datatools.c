@@ -68,3 +68,13 @@ free_2d(double **A) {
   free(A[0]);
   free(A);
 }
+
+void
+disp_2d(int m, int n, double **A) {
+int i,j;
+	for (i=0;i<m;i++){
+	for (j=0;j<n;j++){
+	printf("%f ",A[i][j]);}printf("\n");}
+}
+
+

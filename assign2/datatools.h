@@ -21,4 +21,6 @@ double ** malloc_2d(int m, 	/* number of rows          */
 		   );
 
 void free_2d(double **A);       /* free data allocated by malloc_2d */
+
+void disp_2d(int m, int n, double **A); 		/* display a 2d matrix */
 #endif
