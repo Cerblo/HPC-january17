@@ -68,7 +68,7 @@ void jacobian(double **OLD, double **NEW, double **f, int size, double TOL, int 
     	mat_copy(OLD, NEW,size);
 
     
-	printf("\n\n%i  %f\n", k, d);
+	printf("%i  %f\n", k, d);
 	k++;
   }
 

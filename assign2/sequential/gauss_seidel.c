@@ -62,7 +62,7 @@ void gauss_seidel(double **OLD, double **NEW, double **f, int size, double TOL, 
     /* update step */
     d = gauss_update(OLD, NEW, f, size, h);
     mat_copy_gauss(OLD, NEW,size);
-    printf("\n\n%i  %f\n", k, d);
+    printf("%i  %f\n", k, d);
     k++;
   }
 }

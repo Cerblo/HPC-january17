@@ -22,7 +22,7 @@ if (argc < 3 || (strcmp(argv[1],"jac") != 0 && strcmp(argv[1],"gau") != 0)) {
 
 N = atoi(argv[2]);
 guess = 16;
-tol = 1;
+tol = 0,000001*N*N;
 max_it = 1000;
 
 size = N + 2;
