@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "datatools.h"
 #include "init.h"
 #include "jacobian.h"
@@ -15,15 +16,17 @@ int size, N, max_it;
 double h, guess,tol;
 double **u_old, **u_new, **f;
 
-if (argc < 3 || (strcmp(argv[1],"jac") != 0 && strcmp(argv[1],"gau") != 0)) {
+if (argc < 5 || (strcmp(argv[1],"jac") != 0 && strcmp(argv[1],"gau") != 0)) {
 	printf("Wrong input\n");
 	return 0;
 }
 
 N = atoi(argv[2]);
 guess = 16;
-tol = 0,000001*N*N;
-max_it = 1000;
+
+tol = atof(argv[4]);
+max_it = atoi(argv[3]);
+
 
 size = N + 2;
 h = 2.0 / (N + 1);
@@ -38,8 +41,6 @@ init_f(N, f);
 
 //disp_2d(size, size, f);
 
-//printf("\nh value: %f\n", h);
-
 if (strcmp(argv[1],"jac") == 0){
 
 
@@ -51,5 +52,6 @@ else{
 
 	gauss_seidel(u_old, u_new, f, size, tol, max_it, h);}
 //disp_2d(size, size, u_new);
+
 return 0;
 }

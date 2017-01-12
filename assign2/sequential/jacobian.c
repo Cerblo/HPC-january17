@@ -1,20 +1,6 @@
 #include <math.h>
 #include <stdio.h>
 
-/* f_ij returns the value of the function for the respective coordinates */
-double f_ij(int i, int j, int N) {
-  /* relation between indexes and position in the square */
-  double x = ((2*(double)i)/((double)N+1)) - 1;
-  double y = ((2*(double)j)/((double)N+1)) - 1;
-
-  if (x>=0. && x<=1./3. && y<=-1./3. && y>=-2./3.) {
-  	return (double)200;
-  }
-  else {
-  	return (double)0;
-  }
-}
-
 
 /* jac_update updates the matrix NEW with values calculated from OLD
    jac_update returns the summed absolute squared error */
@@ -49,6 +35,12 @@ void mat_copy(double **A, double **B, int size) {
       A[i][j] = B[i][j];
     }
   }
+}
+
+void mat_swap(double **A, double **B) {
+double *temp = *A;
+*A = *B;
+*B  = temp;
 }
 
 void jacobian(double **OLD, double **NEW, double **f, int size, double TOL, int max_it, \
