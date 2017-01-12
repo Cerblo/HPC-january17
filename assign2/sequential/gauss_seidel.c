@@ -28,7 +28,7 @@ double gauss_update(double **OLD, double **NEW, double **f, int size, double h) 
     for (j = 1; j < size - 1; j++) {
       NEW[i][j] = 0.25*(NEW[i-1][j]+OLD[i+1][j]+NEW[i][j-1]\
                   +OLD[i][j+1]+delta*f[i][j]);
-      err += pow(abs(OLD[i][j] - NEW[i][j]), 2);
+      err += pow(OLD[i][j] - NEW[i][j], 2);
     }
   }
   return err;
@@ -62,6 +62,7 @@ void gauss_seidel(double **OLD, double **NEW, double **f, int size, double TOL, 
     /* update step */
     d = gauss_update(OLD, NEW, f, size, h);
     mat_copy_gauss(OLD, NEW,size);
+    printf("\n\n%i  %f\n", k, d);
     k++;
   }
 }

@@ -29,7 +29,9 @@ double jac_update(double **OLD, double **NEW, double **f, int size, double h) {
     for (j = 1; j < size - 1; j++) {
       NEW[i][j] = 0.25*(OLD[i-1][j]+OLD[i+1][j]+OLD[i][j-1]\
                   +OLD[i][j+1]+delta*f[i][j]);
-      err += pow(abs(OLD[i][j] - NEW[i][j]), 2);
+
+
+      err += pow(OLD[i][j] - NEW[i][j], 2);
     }
   }
   return err;
@@ -64,10 +66,9 @@ void jacobian(double **OLD, double **NEW, double **f, int size, double TOL, int 
     	d = jac_update(OLD, NEW, f, size, h);
 	//OLD = NEW;
     	mat_copy(OLD, NEW,size);
-	errs[k] = d;
+
     
-	printf("\n\nnb_it: %i\n", k);
-	printf("err: %f %f\n\n", errs[k],d );
+	printf("\n\n%i  %f\n", k, d);
 	k++;
   }
 
