@@ -3,6 +3,7 @@
 #include "datatools.h"
 #include "init.h"
 #include "jacobian.h"
+#include "gauss_seidel.h"
 
 int
 main(int argc, char **argv) {
@@ -32,9 +33,9 @@ f = malloc_2d(size, size);
 init_u(size, u_old, guess);
 init_u(size, u_new, guess);
 init_f(N, f);
-disp_2d(size, size, f);
-printf("\nh value: %f\n", h);
-jacobian(u_old, u_new, f, size, tol, max_it, h);
+//disp_2d(size, size, f);
+//printf("\nh value: %f\n", h);
+gauss_seidel(u_old, u_new, f, size, tol, max_it, h);
 disp_2d(size, size, u_new);
 return 0;
 }
