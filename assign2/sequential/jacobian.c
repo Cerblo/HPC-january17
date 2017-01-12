@@ -1,5 +1,9 @@
 #include <math.h>
 #include <stdio.h>
+#include <time.h>
+
+#define mytimer clock
+#define delta_t(a,b) (1e3 * (b - a) / CLOCKS_PER_SEC)
 
 
 /* jac_update updates the matrix NEW with values calculated from OLD
@@ -10,15 +14,26 @@ double jac_update(double **OLD, double **NEW, double **f, int size, double h) {
   int i, j;
   double err = 0;
   double delta = pow(h,2);
+	double iter_time;
 
+	clock_t t1,t2;
+	t1 = mytimer();
   for (i = 1; i < size - 1; i++) {
     for (j = 1; j < size - 1; j++) {
+
+	
       NEW[i][j] = 0.25*(OLD[i-1][j]+OLD[i+1][j]+OLD[i][j-1]\
                   +OLD[i][j+1]+delta*f[i][j]);
 
       err += pow(OLD[i][j] - NEW[i][j], 2);
+	
     }
   }
+
+	t2 = mytimer();
+	iter_time += delta_t(t1,t2)/pow(size,2);
+
+	printf("Iteration time: %f", iter_time);
 	err = 1/pow(size-2,2) * err;
 	err = sqrt(err);
   return err;
