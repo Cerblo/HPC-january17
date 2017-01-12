@@ -58,17 +58,3 @@ void mat_copy(double **A, double **B, int size) {
   } /* pragma omp collapse(2) end */
 }
 
-
-/* f_ij returns the value of the function for the respective coordinates */
-double f_ij(int i, int j, int N) {
-  /* relation between indexes and position in the square */
-  double x = ((2*(double)i)/((double)N+1)) - 1;
-  double y = ((2*(double)j)/((double)N+1)) - 1;
-
-  if (x>=0. && x<=1./3. && y<=-1./3. && y>=-2./3.) {
-  	return (double)200;
-  }
-  else {
-  	return (double)0;
-  }
-}
