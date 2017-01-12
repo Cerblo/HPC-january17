@@ -1,4 +1,4 @@
-#include "jacobi.c"
+#include "jacobian_par.h"
 
 /* jac_update updates the matrix NEW with values calculated from OLD
    jac_update returns the summed absolute squared error */
@@ -17,7 +17,7 @@ double jac_update(double **OLD, double **NEW, double **f, int size, double h) {
 
       err += pow(OLD[i][j] - NEW[i][j], 2);
     }
-  }
+  } /* end pragma collapse(2) */
   return err;
 }
 
@@ -46,5 +46,5 @@ void jacobian(double **OLD, double **NEW, double **f, int size, double TOL, int 
 
 	printf("%i  %f\n", k, d);
 	k++;
-  }
+} /* end pragma collapse(2)*/
 }

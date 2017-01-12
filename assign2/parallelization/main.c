@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "datatools.h"
 #include "init.h"
-#include "jacobian.h"
+#include "jacobian_par.h"
 #include "gauss_seidel.h"
 
 int
@@ -24,9 +24,9 @@ max_it = 1000;
 
 size = N + 2;
 h = 2.0 / (N + 1);
-u_old = malloc_2d(size, size); 
-u_new = malloc_2d(size, size); 
-f = malloc_2d(size, size); 
+u_old = malloc_2d(size, size);
+u_new = malloc_2d(size, size);
+f = malloc_2d(size, size);
 
 init_u(size, u_old, guess);
 init_u(size, u_new, guess);
