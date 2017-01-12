@@ -32,3 +32,4 @@ init.o: init.c init.h
 jacobian.o : jacobian.c jacobian.h
 gauss_seidel.o : gauss_seidel.c gauss_seidel.h
 
+
