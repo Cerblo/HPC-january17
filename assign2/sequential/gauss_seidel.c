@@ -48,6 +48,7 @@ void mat_copy_gauss(double **A, double **B, int size) {
   }
 }
 
+
 void gauss_seidel(double **OLD, double **NEW, double **f, int size, double TOL, int max_it, \
               double h) {
 
@@ -61,7 +62,7 @@ void gauss_seidel(double **OLD, double **NEW, double **f, int size, double TOL, 
   while (d > TOL2 && k < max_it) {
     /* update step */
     d = gauss_update(OLD, NEW, f, size, h);
-    mat_copy_gauss(OLD, NEW,size);
+    mat_swap(&OLD, &NEW);
     printf("%i  %f\n", k, d);
     k++;
   }
