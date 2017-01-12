@@ -23,22 +23,8 @@ double jac_update(double **OLD, double **NEW, double **f, int size, double h) {
   return err;
 }
 
-
-
-
-/* copies values of B into A;
-   matrices must be of same dimensions and symmetric */
-void mat_copy(double **A, double **B, int size) {
-  int i, j;
-  for (i = 0; i < size; i++) {
-    for (j = 0; j < size; j++) {
-      A[i][j] = B[i][j];
-    }
-  }
-}
-
-void mat_swap(double **A, double **B) {
-double *temp = *A;
+void mat_swap(double ***A, double ***B) {
+double **temp = *A;
 *A = *B;
 *B  = temp;
 }
@@ -57,7 +43,7 @@ void jacobian(double **OLD, double **NEW, double **f, int size, double TOL, int 
     /* update step */
     	d = jac_update(OLD, NEW, f, size, h);
 	//OLD = NEW;
-    	mat_copy(OLD, NEW,size);
+    	mat_swap(&OLD, &NEW);
 
     
 	printf("%i  %f\n", k, d);
