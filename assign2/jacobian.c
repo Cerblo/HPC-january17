@@ -1,4 +1,5 @@
 #include <math.h>
+#include <stdio.h>
 
 /* f_ij returns the value of the function for the respective coordinates */
 double f_ij(int i, int j, int N) {
@@ -64,4 +65,5 @@ void jacobian(double **OLD, double **NEW, double **f, int size, double TOL, int 
     mat_copy(OLD, NEW,size);
     k++;
   }
+printf("\nmax_it: %i\n", max_it);
 }

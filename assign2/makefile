@@ -1,22 +1,25 @@
-TARGET	= poisson
-CC = gcc
+TARGET_SER	= poisson_ser
+TARGET_PAR	= poisson_par
+CC = suncc
 DEPS = datatools.h jacobian.h init.h gauss_seidel.h
-OPT = -g -O3
+OPT = -g -fast
 ISA =
-PARA =
+PARA = -xopenmp
 F90C  	= f90
-WARN = -Wall
-CFLAGS = $(OPT) $(WARN) 
+CFLAGS = $(OPT) 
 OBJECTS = datatools.o jacobian.o init.o main.o gauss_seidel.o
 LIBS = 
 
-$(TARGET): $(OBJECTS)
+$(TARGET_SER): $(OBJECTS)
 	$(CC) $(CFLAGS) -o $@ $(OBJECTS) $(LIBS)
+
+$(TARGET_PAR): $(OBJECTS)
+	$(CC) $(CFLAGS) $(PARA) -o $@ $(OBJECTS) $(LIBS)
 
 clean: 
 	@/bin/rm -f *.o core
 realclean: clean
-	@rm -f poisson
+	@rm -f $(TARGET_SER) $(TARGET_PAR)
 
 #rules
 %.o: %.c $(DEPS)
