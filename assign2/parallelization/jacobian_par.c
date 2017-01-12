@@ -1,3 +1,5 @@
+#include <math.h>
+#include <stdio.h>
 #include "jacobian_par.h"
 
 /* jac_update updates the matrix NEW with values calculated from OLD
@@ -9,7 +11,6 @@ double jac_update(double **OLD, double **NEW, double **f, int size, double h) {
   double err = 0;
   double delta = pow(h,2);
 
-  #pragma collapse(2) reduction(+:err)
   for (i = 1; i < size - 1; i++) {
     for (j = 1; j < size - 1; j++) {
       NEW[i][j] = 0.25*(OLD[i-1][j]+OLD[i+1][j]+OLD[i][j-1]\
@@ -17,18 +18,20 @@ double jac_update(double **OLD, double **NEW, double **f, int size, double h) {
 
       err += pow(OLD[i][j] - NEW[i][j], 2);
     }
-  } /* end pragma collapse(2) */
+  }
+	err = 1/pow(size-2,2) * err;
+	err = sqrt(err);
   return err;
 }
 
 void mat_swap(double ***A, double ***B) {
-double **temp = *A;
-*A = *B;
-*B  = temp;
+  double **temp = *A;
+  *A = *B;
+  *B  = temp;
 }
 
 void jacobian(double **OLD, double **NEW, double **f, int size, double TOL, int max_it, \
-              double h, double *errs) {
+              double h) {
 
   /* initializing iteration variables */
   int k = 0;
@@ -37,7 +40,6 @@ void jacobian(double **OLD, double **NEW, double **f, int size, double TOL, int 
   double TOL2 = TOL * TOL;
   double d = TOL2 + 1;
 
-  #pragma omp collapse(2)
   while (d > TOL2 && k < max_it) {
     /* update step */
     	d = jac_update(OLD, NEW, f, size, h);
@@ -46,5 +48,5 @@ void jacobian(double **OLD, double **NEW, double **f, int size, double TOL, int 
 
 	printf("%i  %f\n", k, d);
 	k++;
-} /* end pragma collapse(2)*/
+  }
 }
