@@ -3,7 +3,7 @@
 #include <string.h>
 #include "datatools.h"
 #include "init.h"
-#include "jacobian.h"
+#include "jacobian_par.h"
 #include "gauss_seidel.h"
 
 int
