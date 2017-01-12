@@ -1,5 +1,6 @@
 #include <math.h>
 #include <stdio.h>
+#include "datatools.h"
 
 
 /* jac_update updates the matrix NEW with values calculated from OLD
@@ -19,8 +20,8 @@ double jac_update(double **OLD, double **NEW, double **f, int size, double h) {
       err += pow(OLD[i][j] - NEW[i][j], 2);
     }
   }
-	err = 1/pow(size-2,2) * err;
-	err = sqrt(err);
+	err = 1./(size-2) * sqrt(err);
+//disp_2d(size, size, NEW);
   return err;
 }
 
