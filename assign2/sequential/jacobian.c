@@ -31,7 +31,7 @@ double **temp = *A;
 }
 
 void jacobian(double **OLD, double **NEW, double **f, int size, double TOL, int max_it, \
-              double h, double *errs) {
+              double h) {
 
   /* initializing iteration variables */
   int k = 0;
