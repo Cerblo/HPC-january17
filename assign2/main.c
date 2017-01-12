@@ -31,8 +31,8 @@ f = malloc_2d(size, size);
 init_u(size, u_old, guess);
 init_u(size, u_new, guess);
 init_f(N, f);
-disp_2d(size, size, f);
-printf("\nh value: %f\n", h);
+// disp_2d(size, size, f);
+// printf("\nh value: %f\n", h);
 if (strcmp(argv[1],"jac") != 0)
 	jacobian(u_old, u_new, f, size, tol, max_it, h);
 else
