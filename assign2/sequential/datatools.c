@@ -61,6 +61,31 @@ malloc_2d(int m, int n) {
 
   return A;
 }
+/* Allocating 1d array */
+
+double *
+malloc_1d(int m) {
+
+  int i;
+
+  if (m <= 0)
+    return NULL;
+
+  double *A = malloc(m * sizeof(double));
+  if (A == NULL)
+    return NULL;
+
+  /*A[0] = malloc(m*sizeof(double));
+  if (A[0] == NULL) {
+    free(A);
+    return NULL;
+  }*/
+
+  for (i = 0; i < m; i++)
+	  A[i] = 0;
+
+  return A;
+}
 
 /* Routine for freeing space allocated to array */
 void

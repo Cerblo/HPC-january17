@@ -50,7 +50,7 @@ void mat_copy(double **A, double **B, int size) {
 }
 
 void jacobian(double **OLD, double **NEW, double **f, int size, double TOL, int max_it, \
-              double h) {
+              double h, double *errs) {
 
   /* initializing iteration variables */
   int k = 0;
@@ -61,9 +61,15 @@ void jacobian(double **OLD, double **NEW, double **f, int size, double TOL, int 
 
   while (d > TOL2 && k < max_it) {
     /* update step */
-    d = jac_update(OLD, NEW, f, size, h);
-    mat_copy(OLD, NEW,size);
-    k++;
+    	d = jac_update(OLD, NEW, f, size, h);
+	//OLD = NEW;
+    	mat_copy(OLD, NEW,size);
+	errs[k] = d;
+    
+	printf("\n\nnb_it: %i\n", k);
+	printf("err: %f %f\n\n", errs[k],d );
+	k++;
   }
-printf("\nmax_it: %i\n", max_it);
+
+
 }

@@ -8,6 +8,9 @@
 int
 main(int argc, char **argv) {
 
+FILE *fp;
+fp=fopen("err_jac.txt","w+");
+ 
 int size, N, max_it;
 double h, guess,tol;
 double **u_old, **u_new, **f;
@@ -31,12 +34,23 @@ f = malloc_2d(size, size);
 init_u(size, u_old, guess);
 init_u(size, u_new, guess);
 init_f(N, f);
-disp_2d(size, size, f);
-printf("\nh value: %f\n", h);
-if (strcmp(argv[1],"jac") != 0)
-	jacobian(u_old, u_new, f, size, tol, max_it, h);
-else
-	gauss_seidel(u_old, u_new, f, size, tol, max_it, h);
+
+double *errs = malloc_1d(max_it);
+
+
+//disp_2d(size, size, f);
+//printf("\nh value: %f\n", h);
+
+if (strcmp(argv[1],"jac") == 0){
+
+
+	jacobian(u_old, u_new, f, size, tol, max_it, h, errs);
+	fwrite(errs, sizeof(double), max_it, fp);
+	fclose(fp);
+}
+else{
+
+	gauss_seidel(u_old, u_new, f, size, tol, max_it, h);}
 disp_2d(size, size, u_new);
 return 0;
 }
