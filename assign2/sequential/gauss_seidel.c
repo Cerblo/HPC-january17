@@ -23,14 +23,19 @@ double gauss_update(double **OLD, double **NEW, double **f, int size, double h) 
   int i, j;
   double err = 0;
   double delta = pow(h,2);
+	double temp ;  
 
   for (i = 1; i < size - 1; i++) {
     for (j = 1; j < size - 1; j++) {
-      NEW[i][j] = 0.25*(NEW[i-1][j]+OLD[i+1][j]+NEW[i][j-1]\
-                  +OLD[i][j+1]+delta*f[i][j]);
-      err += pow(OLD[i][j] - NEW[i][j], 2);
+	temp = NEW[i][j];
+      NEW[i][j] = 0.25*(NEW[i-1][j]+NEW[i+1][j]+NEW[i][j-1]\
+                  +NEW[i][j+1]+delta*f[i][j]);
+
+      err += pow(temp - NEW[i][j], 2);
     }
   }
+	err = 1/pow(size-2,2) * err;
+	err = sqrt(err) ;
   return err;
 }
 

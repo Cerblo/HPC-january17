@@ -22,7 +22,7 @@ if (argc < 5 || (strcmp(argv[1],"jac") != 0 && strcmp(argv[1],"gau") != 0)) {
 }
 
 N = atoi(argv[2]);
-guess = 16;
+guess = 10;
 
 tol = atof(argv[4]);
 max_it = atoi(argv[3]);

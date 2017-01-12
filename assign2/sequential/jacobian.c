@@ -16,10 +16,11 @@ double jac_update(double **OLD, double **NEW, double **f, int size, double h) {
       NEW[i][j] = 0.25*(OLD[i-1][j]+OLD[i+1][j]+OLD[i][j-1]\
                   +OLD[i][j+1]+delta*f[i][j]);
 
-
       err += pow(OLD[i][j] - NEW[i][j], 2);
     }
   }
+	err = 1/pow(size-2,2) * err;
+	err = sqrt(err);
   return err;
 }
 
