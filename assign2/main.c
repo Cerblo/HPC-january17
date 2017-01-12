@@ -3,7 +3,7 @@
 #include "datatools.h"
 #include "init.h"
 #include "jacobian.h"
-//#include "gauss_seidel.c"
+#include "gauss_seidel.h"
 
 int
 main(int argc, char **argv) {
@@ -36,7 +36,7 @@ printf("\nh value: %f\n", h);
 if (strcmp(argv[1],"jac") != 0)
 	jacobian(u_old, u_new, f, size, tol, max_it, h);
 else
-	//gauss_seidel(u_old, u_new, f, size, tol, max_it, h);
+	gauss_seidel(u_old, u_new, f, size, tol, max_it, h);
 disp_2d(size, size, u_new);
 return 0;
 }

@@ -27,7 +27,7 @@ realclean: clean
 
 #file dependencies
 datatools.o: datatools.c datatools.h
-main.o: main.c datatools.h jacobian.h init.h
+main.o: main.c datatools.h jacobian.h init.h gauss_seidel.h
 init.o: init.c init.h
 jacobian.o : jacobian.c jacobian.h
 gauss_seidel.o : gauss_seidel.c gauss_seidel.h
