@@ -37,10 +37,10 @@ void jacobian(double **OLD, double **NEW, double **f, int size, double TOL, int 
   int k = 0;
 
   /* stopping criterion is squared; this avoids square root calculation */
-  double TOL2 = TOL * TOL;
-  double d = TOL2 + 1;
+  
+  double d = TOL + 1;
 
-  while (d > TOL2 && k < max_it) {
+  while (d > TOL && k < max_it) {
     /* update step */
     	d = jac_update(OLD, NEW, f, size, h);
 	//OLD = NEW;

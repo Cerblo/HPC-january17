@@ -17,7 +17,7 @@ double f_ij_gauss(int i, int j, int N) {
 
 /* jac_update updates the matrix NEW with values calculated from OLD
    jac_update returns the summed absolute squared error */
-double gauss_update(double **OLD, double **NEW, double **f, int size, double h) {
+double gauss_update(double **NEW, double **f, int size, double h) {
 
   /* loop counters over matrix entries */
   int i, j;
@@ -61,13 +61,13 @@ void gauss_seidel(double **OLD, double **NEW, double **f, int size, double TOL, 
   int k = 0;
 
   /* stopping criterion is squared; this avoids square root calculation */
-  double TOL2 = TOL * TOL;
-  double d = TOL2 + 1;
+ 
+  double d = TOL + 1;
 
-  while (d > TOL2 && k < max_it) {
+  while (d > TOL && k < max_it) {
     /* update step */
-    d = gauss_update(OLD, NEW, f, size, h);
-    mat_swap(&OLD, &NEW);
+    d = gauss_update(NEW, f, size, h);
+
     printf("%i  %f\n", k, d);
     k++;
   }
