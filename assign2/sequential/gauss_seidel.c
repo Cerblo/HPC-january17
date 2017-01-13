@@ -1,5 +1,6 @@
 #include <math.h>
 #include <stdio.h>
+<<<<<<< HEAD
 #include <time.h>
 
 #define mytimer clock
@@ -19,6 +20,9 @@ double f_ij_gauss(int i, int j, int N) {
   }
 }
 
+=======
+#include "datatools.h"
+>>>>>>> 4845ef154d382050836f441733db89e61ca2167b
 
 /* jac_update updates the matrix NEW with values calculated from OLD
    jac_update returns the summed absolute squared error */
@@ -33,6 +37,7 @@ double gauss_update(double **NEW, double **f, int size, double h) {
 	clock_t t1,t2;
 	t1 = mytimer();
 
+//disp_2d(size, size, NEW);
   for (i = 1; i < size - 1; i++) {
     for (j = 1; j < size - 1; j++) {
 
@@ -44,27 +49,17 @@ double gauss_update(double **NEW, double **f, int size, double h) {
     }
   }
 
+
 	t2 = mytimer();
 	iter_time = delta_t(t1,t2);
 	printf("Gau %d %f %f \n", size -2 , iter_time, 4*pow(size,2)/iter_time);
 	err = 1/pow(size-2,2) * err;
 	err = sqrt(err) ;
+
   return err;
 }
 
 
-
-
-/* copies values of B into A;
-   matrices must be of same dimensions and symmetric */
-void mat_copy_gauss(double **A, double **B, int size) {
-  int i, j;
-  for (i = 0; i < size; i++) {
-    for (j = 0; j < size; j++) {
-      A[i][j] = B[i][j];
-    }
-  }
-}
 
 
 void gauss_seidel(double **OLD, double **NEW, double **f, int size, double TOL, int max_it, \
