@@ -7,12 +7,12 @@ PARA = -xopenmp
 F90C  	= f90
 CFLAGS = $(OPT) $(PARA)
 OBJECTS = datatools.o jacobian.o init.o main.o
-LIBS = 
+LIBS =
 
 $(TARGET): $(OBJECTS)
 	$(CC) $(CFLAGS) -o $@ $(OBJECTS) $(LIBS)
 
-clean: 
+clean:
 	@/bin/rm -f *.o core
 realclean: clean
 	@rm -f $(TARGET)
@@ -26,4 +26,3 @@ datatools.o: datatools.c datatools.h
 main.o: main.c datatools.h jacobian.h init.h
 init.o: init.c init.h
 jacobian.o : jacobian.c jacobian.h
-
