@@ -30,9 +30,9 @@ double gauss_update(double **NEW, double **f, int size, double h) {
     }
   }
 
-	t2 = mytimer();
-	iter_time = delta_t(t1,t2);
-	printf("Gau %d %f %f \n", size -2 , iter_time, 4*pow(size,2)/iter_time);
+//	t2 = mytimer();
+//	iter_time = delta_t(t1,t2);
+//	printf("Gau %d %f %f \n", size -2 , iter_time, 4*pow(size,2)/iter_time);
 
   /* error calculation */
   err = 1/pow(size-2,2) * err;
@@ -49,11 +49,11 @@ void gauss_seidel(double **OLD, double **NEW, double **f, int size, double TOL, 
   int k = 1;
   double d = TOL + 1;
 
-  while (d > TOL && k < 5) {
+  while (d > TOL && k < max_it) {
     /* update step */
     d = gauss_update(NEW, f, size, h);
 
-    //printf("%i  %f\n", k, d);
+    printf("%i  %f\n", k, d);
     k++;
   }
 }
