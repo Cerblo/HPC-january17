@@ -50,4 +50,6 @@ NUM=2
 HWCOUNT="-h dch,on,dcm,on,l2h,on,l2m,on"
 
 # start the collect command with the above settings
-collect -o $EXPOUT $HWCOUNT OMP_NUM_THREADS=$NUM./$EXECUTABLE $PAR
+OMP_NUM_THREADS=$NUM
+
+collect -o $EXPOUT $HWCOUNT ./$EXECUTABLE $PAR
