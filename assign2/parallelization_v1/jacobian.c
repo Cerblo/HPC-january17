@@ -55,7 +55,7 @@ void jacobian(double **OLD, double **NEW, double **f, int size, double TOL, int 
 
 	k++;
   }
-printf("%i  %f\n", k, d);
+//printf("%i  %f\n", k, d);
 
 
 }
