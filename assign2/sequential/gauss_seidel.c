@@ -18,7 +18,7 @@ double gauss_update(double **NEW, double **f, int size, double h) {
 	double temp ;
 	double iter_time;
 	clock_t t1,t2;
-	t1 = mytimer();
+//	t1 = mytimer();
 
   /* looping through inner grid and updating grid points */
   for (i = 1; i < size - 1; i++) {
@@ -53,7 +53,7 @@ void gauss_seidel(double **OLD, double **NEW, double **f, int size, double TOL, 
     /* update step */
     d = gauss_update(NEW, f, size, h);
 
-    printf("%i  %f\n", k, d);
+    printf("%i  %5.10f\n", k, d);
     k++;
   }
 }
