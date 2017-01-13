@@ -2,7 +2,6 @@
 #include <stdio.h>
 #include <time.h>
 #include "datatools.h"
-
 #define mytimer clock
 #define delta_t(a,b) (1e3 * (b - a) / CLOCKS_PER_SEC)
 
@@ -17,6 +16,8 @@ double gauss_update(double **NEW, double **f, int size, double h) {
   double delta = pow(h,2);
 	double temp ;
 	double iter_time;
+
+  /* timer code */
 	clock_t t1,t2;
 	t1 = mytimer();
 
@@ -30,9 +31,10 @@ double gauss_update(double **NEW, double **f, int size, double h) {
     }
   }
 
-//	t2 = mytimer();
-//	iter_time = delta_t(t1,t2);
-//	printf("Gau %d %f %f \n", size -2 , iter_time, 4*pow(size,2)/iter_time);
+  /* timer code */
+  //t2 = mytimer();
+  //iter_time = delta_t(t1,t2);
+  //printf("Gau %d %f %f \n", size -2 , iter_time, 4*pow(size,2)/iter_time);
 
   /* error calculation */
   err = 1/pow(size-2,2) * err;
@@ -56,4 +58,5 @@ void gauss_seidel(double **OLD, double **NEW, double **f, int size, double TOL, 
     printf("%i  %f\n", k, d);
     k++;
   }
+  
 }
