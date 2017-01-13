@@ -43,9 +43,7 @@ init_f(N, f);
 
 if (strcmp(argv[1],"jac") == 0){
 
-
 	jacobian(u_old, u_new, f, size, tol, max_it, h);
-
 
 }
 else{

@@ -1,4 +1,9 @@
 #include <math.h>
+#include <stdio.h>
+#include <time.h>
+
+#define mytimer clock
+#define delta_t(a,b) (1e3 * (b - a) / CLOCKS_PER_SEC)
 
 /* f_ij returns the value of the function for the respective coordinates */
 double f_ij_gauss(int i, int j, int N) {
@@ -24,9 +29,13 @@ double gauss_update(double **NEW, double **f, int size, double h) {
   double err = 0;
   double delta = pow(h,2);
 	double temp ;  
+	double iter_time;
+	clock_t t1,t2;
+	t1 = mytimer();
 
   for (i = 1; i < size - 1; i++) {
     for (j = 1; j < size - 1; j++) {
+
 	temp = NEW[i][j];
       NEW[i][j] = 0.25*(NEW[i-1][j]+NEW[i+1][j]+NEW[i][j-1]\
                   +NEW[i][j+1]+delta*f[i][j]);
@@ -34,6 +43,10 @@ double gauss_update(double **NEW, double **f, int size, double h) {
       err += pow(temp - NEW[i][j], 2);
     }
   }
+
+	t2 = mytimer();
+	iter_time = delta_t(t1,t2);
+	printf("Gau %d %f %f \n", size -2 , iter_time, 4*pow(size,2)/iter_time);
 	err = 1/pow(size-2,2) * err;
 	err = sqrt(err) ;
   return err;
@@ -58,17 +71,17 @@ void gauss_seidel(double **OLD, double **NEW, double **f, int size, double TOL, 
               double h) {
 
   /* initializing iteration variables */
-  int k = 0;
+  int k = 1;
 
   /* stopping criterion is squared; this avoids square root calculation */
  
   double d = TOL + 1;
 
-  while (d > TOL && k < max_it) {
+  while (d > TOL && k < 5) {
     /* update step */
     d = gauss_update(NEW, f, size, h);
 
-    printf("%i  %f\n", k, d);
+    //printf("%i  %f\n", k, d);
     k++;
   }
 }

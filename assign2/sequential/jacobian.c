@@ -31,11 +31,14 @@ double jac_update(double **OLD, double **NEW, double **f, int size, double h) {
   }
 
 	t2 = mytimer();
-	iter_time += delta_t(t1,t2)/pow(size,2);
+	iter_time = delta_t(t1,t2);
+	printf("Jac %d %f %f \n", size - 2, iter_time, 4*pow(size,2)/iter_time);
 
-	printf("Iteration time: %f", iter_time);
+
+
 	err = 1/pow(size-2,2) * err;
 	err = sqrt(err);
+
   return err;
 }
 
@@ -49,20 +52,20 @@ void jacobian(double **OLD, double **NEW, double **f, int size, double TOL, int 
               double h) {
 
   /* initializing iteration variables */
-  int k = 0;
+  int k = 1;
 
   /* stopping criterion is squared; this avoids square root calculation */
   
   double d = TOL + 1;
 
-  while (d > TOL && k < max_it) {
+  while (d > TOL && k < 5) {
     /* update step */
     	d = jac_update(OLD, NEW, f, size, h);
 	//OLD = NEW;
     	mat_swap(&OLD, &NEW);
 
 
-	printf("%i  %f\n", k, d);
+	//printf("%i  %f\n", k, d);
 	k++;
   }
 
