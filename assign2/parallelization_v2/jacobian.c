@@ -3,32 +3,6 @@
 #include <omp.h>
 
 
-/* jac_update updates the matrix NEW with values calculated from OLD
-   jac_update returns the summed absolute squared error */
-double jac_update(double **OLD, double **NEW, double **f, int size, double h, double err) {
-
-  /* loop counters over matrix entries */
-  int i, j;
-  double delta = pow(h,2);
-
-#pragma omp for reduction(+:err)
-  for (i = 1; i < size - 1; i++) {
-    for (j = 1; j < size - 1; j++) {
-
-	
-      NEW[i][j] = 0.25*(OLD[i-1][j]+OLD[i+1][j]+OLD[i][j-1]\
-                  +OLD[i][j+1]+delta*f[i][j]);
-
-      err += pow(OLD[i][j] - NEW[i][j], 2);
-	
-    }
-  }
-
-	err = 1/pow(size-2,2) * err;
-	err = sqrt(err);
-  return err;
-}
-
 void mat_swap(double ***A, double ***B) {
 double **temp = *A;
 *A = *B;
@@ -40,24 +14,43 @@ void jacobian(double **OLD, double **NEW, double **f, int size, double TOL, int 
 
   /* initializing iteration variables */
   int k = 0;
+int i,j;
+double err;
 
   /* stopping criterion is squared; this avoids square root calculation */
   
   double d = TOL + 1;
 
+	#pragma omp parallel default(none) \
+ shared(OLD, NEW, f, size, h,d, k, TOL, max_it, err) \
+private(i, j)
+{
   while (d > TOL && k < max_it) {
     /* update step */
-  double err = 0;
-	#pragma omp parallel shared(OLD, NEW, f, size, h, err)\
-	# reduction(+:err)
-{
-    	d = jac_update(OLD, NEW, f, size, h, err);
-}
-    	mat_swap(&OLD, &NEW);
+	err = 0;
+#pragma omp for reduction(+:err)
+  for (i = 1; i < size - 1; i++) {
+    for (j = 1; j < size - 1; j++) {
 
+	
+      NEW[i][j] = 0.25*(OLD[i-1][j]+OLD[i+1][j]+OLD[i][j-1]\
+                  +OLD[i][j+1]+h * h * f[i][j]);
 
-	k++;
+      err += pow(OLD[i][j] - NEW[i][j], 2);
+	
+    }
   }
+	d = 1./(size-2) * sqrt(err);
+#pragma omp master 
+{
+    	mat_swap(&OLD, &NEW);
+	k++;
+
+}
+#pragma omp barrier
+
+}
+}
 printf("%i  %f\n", k, d);
 
 
