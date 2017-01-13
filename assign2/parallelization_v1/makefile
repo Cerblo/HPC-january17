@@ -3,7 +3,7 @@ CC = suncc
 DEPS = datatools.h jacobian.h init.h
 OPT = -g -fast
 ISA =
-PARA = -xopenmp -xinstrument=datarace
+PARA = -xopenmp
 F90C  	= f90
 CFLAGS = $(OPT) $(PARA)
 OBJECTS = datatools.o jacobian.o init.o main.o

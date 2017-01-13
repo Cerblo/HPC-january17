@@ -2,9 +2,5 @@
 #include <math.h>
 #include <stdlib.h>
 
-void gauss_seidel(double **OLD, double **NEW, double **f, int size, double TOL, int max_it, \
-              double h);
-void gauss_update(double **OLD, double **NEW, double **f, int size, double h);
-
-
-
+void gauss_seidel(double **OLD, double **NEW, double **f, int size, double TOL,\
+                  int max_it, double h);

@@ -4,6 +4,7 @@
 #include "datatools.h"
 #include "init.h"
 #include "jacobian.h"
+#include <omp.h>
 
 int
 main(int argc, char **argv) {
@@ -28,6 +29,13 @@ max_it = atoi(argv[2]);
 
 size = N + 2;
 h = 2.0 / (N + 1);
+
+
+//#pragma omp parallel default(none) \
+//shared(size, h, N, guess, max_it, tol,u_old, u_new, f) \
+//private(u_old, u_new, f)
+//{
+
 u_old = malloc_2d(size, size); 
 u_new = malloc_2d(size, size); 
 f = malloc_2d(size, size); 
@@ -36,7 +44,11 @@ init_u(size, u_old, guess);
 init_u(size, u_new, guess);
 init_f(N, f);
 
+//#pragma omp parallel default(none) \
+//shared(size, h, N, guess, max_it, tol,u_old, u_new, f)
+//{
 jacobian(u_old, u_new, f, size, tol, max_it, h);
+//}
 
 return 0;
 }
