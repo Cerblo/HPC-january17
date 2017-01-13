@@ -44,8 +44,8 @@ void mat_swap(double ***A, double ***B) {
   *B  = temp;
 }
 
-void jacobian(double **OLD, double **NEW, double **f, int size, double TOL, int max_it, \
-              double h) {
+void jacobian(double **OLD, double **NEW, double **f, int size, double TOL,
+              int max_it, double h) {
 
   /* initializing iteration variables */
   int k = 1;

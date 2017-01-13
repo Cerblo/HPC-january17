@@ -5,12 +5,8 @@
 #include "init.h"
 #include "jacobian.h"
 
-int
-main(int argc, char **argv) {
+int main(int argc, char **argv) {
 
-
-
- 
 int size, N, max_it;
 double h, guess,tol;
 double **u_old, **u_new, **f;
@@ -28,9 +24,9 @@ max_it = atoi(argv[2]);
 
 size = N + 2;
 h = 2.0 / (N + 1);
-u_old = malloc_2d(size, size); 
-u_new = malloc_2d(size, size); 
-f = malloc_2d(size, size); 
+u_old = malloc_2d(size, size);
+u_new = malloc_2d(size, size);
+f = malloc_2d(size, size);
 
 init_u(size, u_old, guess);
 init_u(size, u_new, guess);
