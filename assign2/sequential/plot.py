@@ -26,6 +26,8 @@ g = f2.read().split('\n')[:-1] # List of rows
 y2 = np.array([float(i.split()[1]) for i in g])
 x2 = range(len(y2))
 
+print(len(y2))
+
 plt.semilogx(x2,y2,'b',label='Gauss-Seidel method')
 lim = y1[1]
 plt.legend()
@@ -33,5 +35,6 @@ plt.ylim(0, lim)
 
 plt.xlabel("Number of iterations")
 plt.ylabel("Error") 
+plt.yscale('log')
 plt.title("Convergence behavior of Jacobi and Gauss Seidel methods.")
 plt.show()

@@ -46,10 +46,11 @@ EXPOUT="$PBS_JOBNAME.${JID}.er"
 #
 HWCOUNT="-h dch,on,dcm,on,l2h,on,l2m,on"
 
-# start the collect command with the above settings
+# start the collect command with the above 
 # we iterate on the number of threads we use
 for NUM in {1..20}
 do
 	#OMP_NUM_THREADS=$NUM collect -o $EXPOUT $HWCOUNT ./$EXECUTABLE $IN
 	time OMP_NUM_THREADS=$NUM ./$EXECUTABLE $IN
 done
+

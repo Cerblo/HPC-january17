@@ -57,7 +57,8 @@ void jacobian(double **OLD, double **NEW, double **f, int size, double TOL,
 	  /* OLD = NEW */
     	mat_swap(&OLD, &NEW);
 
-	printf("%i  %f\n", k, d);
+	printf("%i  %5.10f\n", k, d);
+
 	k++;
   }
 
