@@ -1,15 +1,3 @@
-//extern "C" {#include <stdlib.h>}
-//extern "C" {#include <stdio.h>}
-//extern "C" {#include <math.h>}
-//extern "C" {#include <helper_cuda.h>}
-
-//extern "C" {#include "alloc.h"}
-#include <stdlib.h>
-#include <stdio.h>
-#include <math.h>
-#include <helper_cuda.h>
-#include "alloc.h"
-
 __global__ void kernel_gpu1(int m, int n, int k, double* A, double* B, double* C) {
 	int i, j, l;
 	for ( i = 0; i < m; i++ ) {
@@ -21,7 +9,7 @@ __global__ void kernel_gpu1(int m, int n, int k, double* A, double* B, double* C
 	}
 };
 
-//extern "C" {
+
 void matmult_gpu1(int m, int n, int k) { 
 
 	/*Declaring matrices (as arrays)	
@@ -55,5 +43,5 @@ void matmult_gpu1(int m, int n, int k) {
 
 	//Freeing allocated memory
 	freeall(h_A, h_B, h_C);
-}//}
+}
 
