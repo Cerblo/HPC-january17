@@ -4,6 +4,7 @@
 //extern "C" {#include <helper_cuda.h>}
 
 //extern "C" {#include "alloc.h"}
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <math.h>
@@ -14,9 +15,9 @@ __global__ void kernel_gpu1(int m, int n, int k, double* A, double* B, double* C
 	int i, j, l;
 	for ( i = 0; i < m; i++ ) {
 		for ( j = 0; j < n; j++ ) {
-			for ( l = 0; l < k; 
-				C[i*j+i] += A[i*l+i]*B[l*j+l];
+			for ( l = 0; l < k; l++) {
 
+				C[i*j+i] += A[i*l+i]*B[l*j+l];
 			}
 		}
 	}

@@ -1,6 +1,6 @@
 TARGET	= libmatmult.so
-LIBSRCS	= matmult_gpu2.cu
-LIBOBJS	= matmult_gpu2.o
+LIBSRCS	= matmult_gpu2.cu matmult_lib.cu alloc.cu
+LIBOBJS	= matmult_gpu2.o matmult_lib.o alloc.h
 
 OPT	= -g
 PIC = -fpic
@@ -16,7 +16,7 @@ CUDA_PATH ?= /appl/cuda/8.0
 INCLUDES = -I$(CUDA_PATH)/include -I$(CUDA_PATH)/samples/common/inc
 
 SOFLAGS = -shared
-XLIBS	= -lcublas
+XLIBS	= -lptcublas
 
 $(TARGET): $(LIBOBJS)
 	$(CXX) -o $@ $(CXXFLAGS) $(SOFLAGS) $(INCLUDES) $^ $(XLIBS)
@@ -27,3 +27,8 @@ $(TARGET): $(LIBOBJS)
 
 clean:
 	@/bin/rm -f $(TARGET) $(LIBOBJS) 
+
+
+matmult_gpu2.o : matmult_gpu2.cu matmul_gpu2.h
+
+matmult_lib.o : matmult_lib.cu matmul_lib.h
