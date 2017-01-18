@@ -33,8 +33,8 @@ void transferToDevice(double* h_A, double* h_B, double* h_C, double* d_A, double
 
 void transferToHost(double* h_A, double* h_B, double* h_C, double* d_A, double* d_B, double* d_C, int A_no, int B_no, int C_no) {
 	cudaMemcpy(h_A, d_A, A_no, cudaMemcpyDeviceToHost);
-	cudaMemcpy(h_B, d_B, A_no, cudaMemcpyDeviceToHost);
-	cudaMemcpy(h_C, d_C, A_no, cudaMemcpyDeviceToHost);
+	cudaMemcpy(h_B, d_B, B_no, cudaMemcpyDeviceToHost);
+	cudaMemcpy(h_C, d_C, C_no, cudaMemcpyDeviceToHost);
 }
 
 void freeall(double* h_A, double* h_B, double* h_C, double* d_A, double* d_B, double* d_C) {
