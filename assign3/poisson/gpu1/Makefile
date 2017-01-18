@@ -1,29 +1,45 @@
 TARGET	= poisson
-CC = suncc
-DEPS = datatools.h jacobian.h init.h
-OPT = -g -fast
-ISA =
-PARA = -xopenmp
+OBJS	= main.o jacobian.o init.o datatools.o 
+
+OPT	= -g
+ISA	= 
+PARA	=
+
+XOPTS = -G -Xptxas=-v		#from cuda makefile
+ARCH  = -arch=sm_30		#from cuda makefile
+OMP   = -fopenmp 		#from cuda makefile
+
+CCC	= nvcc
+CXX	= nvcc			
+CXXFLAGS= 
+
+CFLAGS	= $(OPT) $(ISA) $(PARA) $(XOPT)
+
 F90C  	= f90
-CFLAGS = $(OPT) $(PARA)
-OBJECTS = datatools.o jacobian.o init.o main.o
-LIBS = 
 
-$(TARGET): $(OBJECTS)
-	$(CC) $(CFLAGS) -o $@ $(OBJECTS) $(LIBS)
+LIBS	=  
 
-clean: 
+CUDA_PATH ?= /appl/cuda/8.0
+INCLUDES = -I$(CUDA_PATH)/include -I$(CUDA_PATH)/samples/common/inc
+
+all: $(TARGET)
+
+$(TARGET): $(OBJS) 
+	$(CCC) $(CFLAGS) -o $@ $(OBJS) $(LIBS)
+
+.SUFFIXES: .cu
+.cu.o:
+	$(CXX) -o $*.o -c $*.cu $(CXXFLAGS) $(SOFLAGS) $(INCLUDES)
+
+
+clean:
 	@/bin/rm -f *.o core
+
 realclean: clean
 	@rm -f $(TARGET)
 
-#rules
-%.o: %.c $(DEPS)
-	$(CC) $(CFLAGS) -c -o $@ $<
-
-#file dependencies
-datatools.o: datatools.c datatools.h
-main.o: main.c datatools.h jacobian.h init.h
-init.o: init.c init.h
-jacobian.o : jacobian.c jacobian.h
-
+# dependencies
+#
+main.o  : main.cu datatools.h
+jacobian.o: jacobian.cu
+init.o: init.cu init.h datatools.h

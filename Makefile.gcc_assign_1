@@ -1,0 +1,18 @@
+TARGET	= libmatmult.so
+LIBSRCS	= datatools.c matmult_lib.c matmult_nat.c matmult_blk.c
+LIBOBJS	= datatools.o matmult_lib.o matmult_nat.o matmult_blk.o
+
+OPT	= -g -O3
+PIC	= -fPIC
+
+CC	= gcc
+CFLAGS= $(OPT) $(PIC) $(XOPTS)
+
+SOFLAGS = -shared 
+XLIBS	= -L /usr/lib64/atlas -lcblas
+
+$(TARGET): $(LIBOBJS)
+	$(CC) -o $@ $(SOFLAGS) $(LIBOBJS) $(XLIBS)
+
+clean:
+	@/bin/rm -f core core.* $(LIBOBJS) 
