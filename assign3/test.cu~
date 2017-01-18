@@ -1,0 +1,4 @@
+
+
+kernelFunc<<<NUM_BLOCKS, THREADS_PER_BLOCK>>>(...);
+cudaDeviceSynchronize();
