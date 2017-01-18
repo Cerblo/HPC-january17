@@ -1,18 +1,19 @@
-extern "C" { #include "matmult_gpu1.h" }
+#include "matmult_gpu1.h" 
+
+extern "C" {
 
 __global__ void kernel_gpu1(int m, int n, int k, double* A, double* B, double* C) {
 	int i, j, l;
 	for ( i = 0; i < m; i++ ) {
 		for ( j = 0; j < n; j++ ) {
 			for ( l = 0; l < k; l++) {
-				C[i*j+i] += A[i*l+i]*B[l*j+l];
+				C[i*n+i] += A[i*l+i]*B[l*j+l];
 			}
 		}
 	}
 };
 
 
-extern "C" {
 void matmult_gpu1(int m, int n, int k) { 
 
 	/*Declaring matrices (as arrays)	
@@ -45,6 +46,6 @@ void matmult_gpu1(int m, int n, int k) {
 	checkCudaErrors(cudaDeviceSynchronize());
 
 	//Freeing allocated memory
-	freeall(h_A, h_B, h_C);
+	freeall(h_A, h_B, h_C, d_A, d_B, d_C);
 }
 } /* end extern */
