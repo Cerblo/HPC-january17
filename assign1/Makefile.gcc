@@ -15,4 +15,4 @@ $(TARGET): $(LIBOBJS)
 	$(CC) -o $@ $(SOFLAGS) $(LIBOBJS) $(XLIBS)
 
 clean:
-	@/bin/rm -f core core.* $(LIBOBJS) 
+	@/bin/rm -f core core.* $(LIBOBJS)

@@ -7,7 +7,7 @@ int main(int argc, char **argv)
  // Transfer data from host to device
  cudaMemcpy(...);
 
- // Kernel lauch
+ // Kernel launch
  kernel<<<Grid, Block>>>(...);
  cudaDeviceSynchronize();
 
