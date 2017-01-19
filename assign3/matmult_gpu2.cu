@@ -13,16 +13,16 @@ __global__ void kernel_gpu2(int m, int n, int k, double *A, double *B, double *C
  	int i = blockIdx.y * blockDim.y + threadIdx.y; 
 	
 	int l;
-
 	
-	if (i<m && j<n){
-
+	
+	//if (i<m && j<n){
+		
 		for(l=0;l<k;l++){
 			
 			C[i*n+j] += A[i*k+l]*B[l*n+j];
 
 		}
-	}
+	//}
 	 
 }
 
@@ -39,12 +39,20 @@ void matmult_gpu2(int m, int n, int k, double* A, double* B, double* C){
 	int B_no = k*n*sizeof(double);
 	int C_no = m*n*sizeof(double);
 	int i;int j;
+
 	double* d_A; 
 	double* d_B; 
 	double* d_C;
 	
-	
-	
+	for (i=0;i<m;i++){
+	for (j=0;j<n;j++){
+	printf("%f ", C[i*n + j]);
+	}printf("\n");}printf("\n");
+
+	for (i=0;i<m;i++){
+	for (j=0;j<n;j++){
+	C[i*n + j]=0;
+	}}	
 
 	//Allocation of memory for matrices
 	alloc(&d_A, &d_B, &d_C, A_no, B_no, C_no);
@@ -57,8 +65,10 @@ void matmult_gpu2(int m, int n, int k, double* A, double* B, double* C){
 
 	 // Kernel launch
 	 int K = 16; //Size of the block
- 	 kernel_gpu2<<<dim3(m/K,n/K), dim3(K,K)>>>(m,n,k,d_A,d_B,d_C);
-	// cudaDeviceSynchronize();
+	dim3 dimgrid(ceil((double) m/K), ceil((double) n/K));
+	dim3 dimblock(K,K);
+ 	 kernel_gpu2<<<dimgrid, dimblock>>>(m,n,k,d_A,d_B,d_C);
+	cudaDeviceSynchronize();
 	
 	//Transfer results from device to host
 
@@ -66,12 +76,12 @@ void matmult_gpu2(int m, int n, int k, double* A, double* B, double* C){
 	
 
 	//Device Synchronization (and Cuda Error Check)
-	checkCudaErrors(cudaDeviceSynchronize());
+	//checkCudaErrors(cudaDeviceSynchronize());
 	
-	for (i=0;i<m;i++){
+	/*for (i=0;i<m;i++){
 	for (j=0;j<n;j++){
 	printf("%f ", C[i*n + j]);
-	}printf("\n");}printf("\n");
+	}printf("\n");}printf("\n");*/
 	//Freeing allocated memory
 	freeall(d_A, d_B, d_C);
 }
