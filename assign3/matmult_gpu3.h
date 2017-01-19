@@ -5,4 +5,4 @@
 #include "alloc.h"
 
 
-void matmult_gpu3(int m, int n, int k);
+void matmult_gpu3(int m, int n, int k, double* A, double* B, double* C);
