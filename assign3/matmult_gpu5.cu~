@@ -4,37 +4,39 @@
 #include <helper_cuda.h>
 #include "alloc.h"
 
+#define BLOCK_SIZE 16
+
 extern "C" {
 
 __global__ void kernel_gpu5(int m, int n, int k, double *A, double *B, double *C) {
 	
 	// Block rows and columns
 	int blockRow = blockIdx.y;
-	int blockColumn = blockIdx.x;
+	int blockCol = blockIdx.x;
 
 	// Thread rows and columns within Block
     	int row = threadIdx.y;
     	int col = threadIdx.x;
 
 	double cbuffer = 0;
-
+	
 	__shared__ double a[BLOCK_SIZE][BLOCK_SIZE];
         __shared__ double b[BLOCK_SIZE][BLOCK_SIZE];
 
 	// Loop over sub-matrices A and B that are required to compute block
 	int l_matrices = k/BLOCK_SIZE; 	// number of sub-matrices along
 	int l; 			 	// iteration variable
-	for (l_submatrices = 0; l<l_submatrices; ++l) {
+	for (l = 0; l<l_matrices; l++) {
 		
 		// Load sub-matrices A and B into shared memory
-		a[row][col] = A[k*row+col+l*];
-		b[row][col] = B[n*row+col+l*];
+		a[row][col] = A[row*k + col + l*BLOCK_SIZE + blockRow*k];
+		b[row][col] = B[row*n + col + l*BLOCK_SIZE + blockCol];
 		// Synchronize to make sure the sub-matrices are loaded
         	__syncthreads();
 
 		// Multiply submatrices A and B together
 		int count;
-		for (count = 0; count<BLOCK_SIZE; ++count) {
+		for (count = 0; count<BLOCK_SIZE; count++) {
 			cbuffer += a[row][count]*b[count][col];
 		}
 		// Sync before moving on to new submatrices
@@ -42,7 +44,7 @@ __global__ void kernel_gpu5(int m, int n, int k, double *A, double *B, double *C
 	}
 	// each thread writes its result to matrix
 	// alternatively, 
-	C[row][col] = cbuffer; 
+	C[row*n + col + blockRow*n + blockCol] = cbuffer; 
 }
 
 
@@ -73,10 +75,10 @@ void matmult_gpu5(int m, int n, int k, double* A, double* B, double* C){
 	transferToDevice(A, B, C, d_A, d_B, d_C, A_no, B_no, C_no);
 
 	// Kernel launch
-	int K = 16; //Size of the block
+	int K = BLOCK_SIZE; //Size of the block
 	dim3 dimgrid(ceil((double) m/K), ceil((double) n/K));
 	dim3 dimblock(K,K);
- 	kernel_gpu2<<<dimgrid, dimblock>>>(m,n,k,d_A,d_B,d_C);
+ 	kernel_gpu5<<<dimgrid, dimblock>>>(m,n,k,d_A,d_B,d_C);
 	
 	//Device Synchronization (and Cuda Error Check)
 	//checkCudaErrors(cudaDeviceSynchronize());
@@ -85,10 +87,12 @@ void matmult_gpu5(int m, int n, int k, double* A, double* B, double* C){
 	//Transfer results from device to host
 	transferToHost(A, B, C, d_A, d_B, d_C, A_no, B_no, C_no);
 	
-	/*for (i=0;i<m;i++){
+	/*int i, j;
+	for (i=0;i<m;i++){
 	for (j=0;j<n;j++){
 	printf("%f ", C[i*n + j]);
 	}printf("\n");}printf("\n");*/
+
 	//Freeing allocated memory
 	freeall(d_A, d_B, d_C);
 }
