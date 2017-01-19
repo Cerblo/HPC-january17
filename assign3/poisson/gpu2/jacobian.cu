@@ -14,7 +14,6 @@ jacobian(double *OLD, double *NEW, double *f, int size, int max_it, \
               double h) {
 
   /* initializing iteration variables */
-  int i,j;
 // 1 is added to row and column because the boundaries are not to be changed
 int row = blockIdx.x * blockDim.x + threadIdx.x + 1;
 int col = blockIdx.y * blockDim.y + threadIdx.y + 1;
