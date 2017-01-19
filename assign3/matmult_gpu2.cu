@@ -15,14 +15,14 @@ __global__ void kernel_gpu2(int m, int n, int k, double *A, double *B, double *C
 	int l;
 	
 	
-	//if (i<m && j<n){
-		
+	if (i<m && j<n){
+		C[i*n + j] = 0;
 		for(l=0;l<k;l++){
 			
 			C[i*n+j] += A[i*k+l]*B[l*n+j];
 
 		}
-	//}
+	}
 	 
 }
 
@@ -49,10 +49,10 @@ void matmult_gpu2(int m, int n, int k, double* A, double* B, double* C){
 	printf("%f ", C[i*n + j]);
 	}printf("\n");}printf("\n");
 
-	for (i=0;i<m;i++){
+	/*for (i=0;i<m;i++){
 	for (j=0;j<n;j++){
 	C[i*n + j]=0;
-	}}	
+	}}*/	
 
 	//Allocation of memory for matrices
 	alloc(&d_A, &d_B, &d_C, A_no, B_no, C_no);
