@@ -44,15 +44,6 @@ void matmult_gpu2(int m, int n, int k, double* A, double* B, double* C){
 	double* d_B; 
 	double* d_C;
 	
-	for (i=0;i<m;i++){
-	for (j=0;j<n;j++){
-	printf("%f ", C[i*n + j]);
-	}printf("\n");}printf("\n");
-
-	/*for (i=0;i<m;i++){
-	for (j=0;j<n;j++){
-	C[i*n + j]=0;
-	}}*/	
 
 	//Allocation of memory for matrices
 	alloc(&d_A, &d_B, &d_C, A_no, B_no, C_no);
