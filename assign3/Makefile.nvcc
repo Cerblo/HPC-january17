@@ -1,6 +1,6 @@
 TARGET	= libmatmult.so
-LIBSRCS	= matmult_gpu1.cu matmult_gpu2.cu matmult_lib.cu alloc.cu matmult_gpu3.cu matmult_gpu4.cu
-LIBOBJS	= matmult_gpu1.o matmult_gpu2.o matmult_lib.o alloc.o matmult_gpu3.o matmult_gpu4.o
+LIBSRCS	= matmult_gpu1.cu matmult_gpu2.cu matmult_lib.cu alloc.cu matmult_gpu3.cu matmult_gpu4.cu matmult_gpu5.cu
+LIBOBJS	= matmult_gpu1.o matmult_gpu2.o matmult_lib.o alloc.o matmult_gpu3.o matmult_gpu4.o matmult_gpu5.o
 
 OPT	= -g
 PIC = -fpic
@@ -35,3 +35,4 @@ alloc.o : alloc.cu alloc.h
 matmult_gpu3.o : matmult_gpu3.cu matmult_gpu3.h
 matmult_gpu1.o: matmult_gpu1.cu matmult_gpu1.h
 matmult_gpu4.o : matmult_gpu4.cu matmult_gpu4.h
+matmult_gpu5.o : matmult_gpu5.cu matmult_gpu5.h
