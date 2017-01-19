@@ -14,6 +14,7 @@ __global__ void kernel_gpu4(int m, int n, int k,double *A, double *B, double *C)
 	int l;
 
 	if ((2*i)<m && (2*j)<n){
+
 		C[2*i*n + 2*j]=0;
 		C[(2*i+1)*n + 2*j]=0;
 		C[2*i*n + 2*j+1]=0;
@@ -77,7 +78,7 @@ void matmult_gpu4(int m, int n, int k, double* A, double* B, double* C){
 
 	//printf("%f %f\n", ceil((double) m/(2*K)),ceil((double) n/K));
  	 kernel_gpu4<<<dimgrid, dimblock>>>(m,n,k,d_A,d_B,d_C);
-	checkCudaErrors(cudaDeviceSynchronize());
+	cudaDeviceSynchronize();
 	
 	//Transfer results from device to host
 	transferToHost(A, B, C, d_A, d_B, d_C, A_no, B_no, C_no);

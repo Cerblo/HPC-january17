@@ -56,7 +56,7 @@ void matmult_gpu2(int m, int n, int k, double* A, double* B, double* C){
 
 	 // Kernel launch
 	 int K = 16; //Size of the block
-	dim3 dimgrid(ceil((double) m/K), ceil((double) n/K));
+	dim3 dimgrid(ceil((double) n/K), ceil((double) m/K));
 	dim3 dimblock(K,K);
  	 kernel_gpu2<<<dimgrid, dimblock>>>(m,n,k,d_A,d_B,d_C);
 	cudaDeviceSynchronize();
