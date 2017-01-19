@@ -60,13 +60,11 @@ checkCudaErrors(cudaMemcpy(h_Unew, d_Unew, total_size, cudaMemcpyDeviceToHost));
 
 int i;
 for (i = 0; i < size * size; i++) {
-/*
 if (i % size == 0)
 printf("\n");
 printf("%5.1f ", h_Unew[i]);}
 printf("\n");
-*/
-}
+//}
 
 
 checkCudaErrors(cudaFreeHost(h_Uold));
