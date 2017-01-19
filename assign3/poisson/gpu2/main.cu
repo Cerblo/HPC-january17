@@ -3,6 +3,7 @@
 #include "init.h"
 #include "jacobian.h"
 #include <helper_cuda.h>
+#include <math.h>
 
 int main(int argc, char **argv) {
 
@@ -42,12 +43,14 @@ checkCudaErrors(cudaMemcpy(d_Unew, h_Unew, total_size, cudaMemcpyHostToDevice));
 checkCudaErrors(cudaMemcpy(d_f, h_f, total_size, cudaMemcpyHostToDevice)); 
 
 
+dim3 threadsPerBlock(16, 16);
+dim3 numBlocks(ceil(N/16.0), ceil(N/16.0));
 k = 0;
 while(k < max_it) {
 
 mat_swap(&d_Uold, &d_Unew);
 
-  jacobian<<<1, 1>>>(d_Uold, d_Unew, d_f, size, max_it, h);
+  jacobian<<<numBlocks, threadsPerBlock>>>(d_Uold, d_Unew, d_f, size, max_it, h);
 checkCudaErrors(cudaDeviceSynchronize());
 
 k++;
@@ -57,10 +60,13 @@ checkCudaErrors(cudaMemcpy(h_Unew, d_Unew, total_size, cudaMemcpyDeviceToHost));
 
 int i;
 for (i = 0; i < size * size; i++) {
+/*
 if (i % size == 0)
 printf("\n");
 printf("%5.1f ", h_Unew[i]);}
 printf("\n");
+*/
+}
 
 
 checkCudaErrors(cudaFreeHost(h_Uold));
