@@ -4,5 +4,4 @@
 #include <helper_cuda.h>
 #include "alloc.h"
 
-void matmult_gpu5(int m, int n, int k, double* A, double* B, double* C);
-
+void matmult_gpulib(int m, int n, int k, double* A, double* B, double* C);
