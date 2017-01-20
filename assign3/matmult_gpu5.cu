@@ -30,7 +30,7 @@ __global__ void kernel_gpu5(int m, int n, int k, double *A, double *B, double *C
 		
 		// Load sub-matrices A and B into shared memory
 		a[row][col] = A[row*k + col + l*BLOCK_SIZE + k*BLOCK_SIZE*blockCol];
-		b[row][col] = B[row*n + col + l*BLOCK_SIZE*n + blockRow*k*BLOCK_SIZE];
+		b[row][col] = B[row*n + col + l*BLOCK_SIZE*n + blockRow*n*BLOCK_SIZE];
 		// Synchronize to make sure the sub-matrices are loaded
         	__syncthreads();
 
