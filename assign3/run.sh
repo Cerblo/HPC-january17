@@ -1,0 +1,20 @@
+sh test.sh 20 20 20
+sh test.sh 20 30 20
+sh test.sh 30 40 20
+sh test.sh 60 50 20
+sh test.sh 60 60 50
+sh test.sh 80 80 60
+sh test.sh 100 80 100
+sh test.sh 200 100 100
+sh test.sh 200 200 200
+sh test.sh 300 200 300
+sh test.sh 400 300 400
+sh test.sh 500 400 500
+sh test.sh 600 600 600
+sh test.sh 900 900 800
+sh test.sh 1000 2000 1000
+sh test.sh 1500 1500 2000
+sh test.sh 2000 2000 2000
+sh test.sh 1000 700 500
+sh test.sh 150 150 200
+
