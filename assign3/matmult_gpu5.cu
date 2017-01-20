@@ -44,7 +44,7 @@ __global__ void kernel_gpu5(int m, int n, int k, double *A, double *B, double *C
 	}
 	// each thread writes its result to matrix
 	// alternatively, 
-	C[row*n + col + blockRow*n + blockCol] = cbuffer; 
+	C[row*n + col + blockRow*n*BLOCK_SIZE + blockCol] = cbuffer; 
 }
 
 
