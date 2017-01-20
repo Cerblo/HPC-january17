@@ -2,7 +2,7 @@
 #include "datatools.h"
 #include "init.h"
 #include "jacobian.h"
-//#include <helper_cuda.h>
+#include <helper_cuda.h>
 #include <math.h>
 
 int main(int argc, char **argv) {
@@ -55,7 +55,7 @@ cudaMemcpy(d1_Uold, h_Uold + size * size / 2, total_size / 2, cudaMemcpyHostToDe
 cudaMemcpy(d1_Unew, h_Unew + size * size / 2, total_size / 2, cudaMemcpyHostToDevice); 
 cudaMemcpy(d1_f, h_f + size * size / 2, total_size / 2, cudaMemcpyHostToDevice); 
 
-cudaDeviceEnablePeerAccess(7, 6);
+cudaDeviceEnablePeerAccess(6, 7);
 
 dim3 threadsPerBlock(16, 16);
 dim3 numBlocks(ceil(N/16.0/2), ceil(N/16.0));
@@ -70,7 +70,6 @@ mat_swap(&d1_Uold, &d1_Unew);
 cudaDeviceSynchronize();
 
 
-
 cudaSetDevice(7);
   jacobian_1<<<numBlocks, threadsPerBlock>>>(d0_Uold, d1_Uold, d1_Unew, d1_f, size, max_it, h);
 cudaDeviceSynchronize();
@@ -83,15 +82,14 @@ cudaMemcpy(h_Unew, d0_Unew, total_size / 2, cudaMemcpyDeviceToHost);
 
 cudaSetDevice(7);
 cudaMemcpy(h_Unew + size * size / 2, d1_Unew, total_size / 2, cudaMemcpyDeviceToHost);
-
+/*
 int i;
 for (i = 0; i < size * size; i++) {
 if (i % size == 0)
 printf("\n");
 printf("%5.1f ", h_Unew[i]);}
 printf("\n");
-
-
+*/
 cudaFreeHost(h_Uold);
 cudaFreeHost(h_Unew);
 cudaFreeHost(h_f);
