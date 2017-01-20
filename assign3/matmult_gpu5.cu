@@ -29,8 +29,8 @@ __global__ void kernel_gpu5(int m, int n, int k, double *A, double *B, double *C
 	for (l = 0; l<l_matrices; l++) {
 		
 		// Load sub-matrices A and B into shared memory
-		a[row][col] = A[row*k + col + l*BLOCK_SIZE + k*BLOCK_SIZE*blockCol];
-		b[row][col] = B[row*n + col + l*BLOCK_SIZE*n + blockRow*n*BLOCK_SIZE];
+		a[row][col] = A[row*k + col + l*BLOCK_SIZE + k*BLOCK_SIZE*blockRow];
+		b[row][col] = B[row*n + col + l*BLOCK_SIZE*n + blockCol*BLOCK_SIZE];
 		// Synchronize to make sure the sub-matrices are loaded
         	__syncthreads();
 
@@ -44,7 +44,7 @@ __global__ void kernel_gpu5(int m, int n, int k, double *A, double *B, double *C
 	}
 	// each thread writes its result to matrix
 	// alternatively, 
-	C[row*n + col + blockRow*n*BLOCK_SIZE + blockCol] = cbuffer; 
+	C[row*n + col + blockRow*n*BLOCK_SIZE + blockCol*BLOCK_SIZE] = cbuffer; 
 }
 
 
@@ -76,7 +76,7 @@ void matmult_gpu5(int m, int n, int k, double* A, double* B, double* C){
 
 	// Kernel launch
 	int K = BLOCK_SIZE; //Size of the block
-	dim3 dimgrid(ceil((double) m/K), ceil((double) n/K));
+	dim3 dimgrid(ceil((double) n/K), ceil((double) m/K));
 	dim3 dimblock(K,K);
  	kernel_gpu5<<<dimgrid, dimblock>>>(m,n,k,d_A,d_B,d_C);
 	
