@@ -24,15 +24,17 @@ if (row < size/2 - 1 && col < size - 1) {
     }
 }
 
-
+// Function taking care of the bottom of the matrix
 __global__ void 
 jacobian_1(double *d0_OLD, double *d1_OLD, double *NEW, double *f, int size, int max_it, \
               double h) {
 
   /* initializing iteration variables */
+// This time row don't start with 1 because there is no boundaries (since it's the bottom
 int row = blockIdx.x * blockDim.x + threadIdx.x;
 int col = blockIdx.y * blockDim.y + threadIdx.y + 1;
 
+// Separate the case when communicating with the other GPU is necessary
 if (row == 0 && col < size - 1) {
         NEW[row * size + col] = 0.25 * ( d0_OLD[(size / 2 - 1)* size + col] + d1_OLD[(row + 1) * size + col] + d1_OLD[row * size + (col-1)]\
                           + d1_OLD[row * size + (col+1)] + h * h * f[row * size + col]);
